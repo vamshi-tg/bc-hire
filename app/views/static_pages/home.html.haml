@@ -1,16 +1,9 @@
-.container-fluid
-    .row
-        .col-md-6.offset-md-3
-            = form_for :session do |f|
-                .form-group
-                    = f.label :email
-                    = f.text_field :email, {class: "form-control"}
-                .form-group
-                    = f.label :password
-                    = f.password_field :password, {class: "form-control"}
-
-                -# .col-md-offset-1.col-md-4
-                -# = f.submit "Submit", class: "btn btn-primary"
-    .row
-        .offset-md-3.col-md-6.google-sign-in
-            = link_to image_tag("btn_google_signin_dark_normal_web.png", alt: "Sign In logo"), 'http://rubyonrails.org/'
+-provide(:login_screen, true)
+.container-fluid.d-flex.h-100.justify-content-center
+    .d-flex.align-items-center
+        .card.border-dark{width: "240px"}
+            -# .card-img-top= image_tag("bc-logo.png", alt:"bc-logo") 
+            .card-body
+                .d-flex.flex-column.align-items-center
+                    %h1.p-2 BC HIRE
+                    %div.p-5= link_to image_tag("btn_google_signin_dark_normal_web.png", alt: "Sign In logo"), 'http://rubyonrails.org/'

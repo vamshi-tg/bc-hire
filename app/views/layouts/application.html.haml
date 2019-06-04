@@ -6,5 +6,6 @@
     = render 'layouts/shim'
 
   %body
+    -# -unless yield(:login_screen)
     = render 'layouts/header'
     = yield
