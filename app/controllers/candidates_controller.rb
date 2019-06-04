@@ -1,6 +1,7 @@
 class CandidatesController < ApplicationController
     def index
         @candidates = Candidate.all
+        @candidates = Candidate.paginate(page: params[:page])
     end
 
     def show

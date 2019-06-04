@@ -1,6 +1,17 @@
-%h1 Candidates
 .container
-    .list-group
-        - @candidates.each do |candidate|
-            = link_to "#{candidate.name} \n #{candidate.email}", candidate, {class: "list-group-item"}
-
+    = will_paginate @candidates, list_classes: %w(pagination justify-content-end)
+    %table.table.table-hover
+        %thead
+            %tr
+                %th Name
+                %th Email
+                %th Experience
+                %th Action
+        %tbody
+            - @candidates.each do |candidate|
+                %tr
+                    %td= candidate.name
+                    %td= candidate.email
+                    %td= candidate.experience
+                    %td= "View Delete Edit"
+    = will_paginate @candidates,  list_classes: %w(pagination justify-content-end)   

@@ -11,7 +11,8 @@ gem 'jbuilder',     '2.7.0'
 gem 'haml',         '5.0.4'
 gem 'faker',        '1.7.3'
 gem 'bootstrap',    '4.0.0'
-
+gem 'will_paginate', '3.1.6'
+gem 'will_paginate-bootstrap4'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
