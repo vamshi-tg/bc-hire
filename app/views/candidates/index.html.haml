@@ -1,5 +1,7 @@
 .container
-    = will_paginate @candidates, list_classes: %w(pagination justify-content-end)
+    .row
+        %button.btn.btn-outline-primary.btn-sm= link_to "Add Candidate", new_candidate_path
+        = will_paginate @candidates, list_classes: %w(pagination justify-content-end)
     %table.table.table-hover
         %thead
             %tr
@@ -13,5 +15,5 @@
                     %td= candidate.name
                     %td= candidate.email
                     %td= candidate.experience
-                    %td= "View Delete Edit"
+                    %td= link_to "Edit", edit_candidate_path(candidate)
     = will_paginate @candidates,  list_classes: %w(pagination justify-content-end)   

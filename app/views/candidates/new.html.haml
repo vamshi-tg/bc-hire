@@ -1,0 +1,6 @@
+-provide(:url_path, candidates_path)
+-provide(:button_text, "Create")
+%h1 Create Candidate Details
+.row
+    .col-md-6.offset-md-3
+        = render 'form', object: @candidate

@@ -1,0 +1,6 @@
+-provide(:url_path, candidate_path(@candidate))
+-provide(:button_text, "Update")
+%h1 Update Candidate Details
+.row
+    .col-md-6.offset-md-3
+        = render 'form', object: @candidate
