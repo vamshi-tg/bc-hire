@@ -2,6 +2,9 @@ class Candidate < ApplicationRecord
     # Associations
     has_many :applications
 
+    # Nested Attributes
+    accepts_nested_attributes_for :applications
+
     # Validations
     validates :name, presence: true
     
