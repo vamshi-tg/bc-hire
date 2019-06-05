@@ -18,4 +18,14 @@ class ApplicationTest < ActiveSupport::TestCase
     @application.experience = " "
     assert_not @application.valid?
   end
+
+  test "should not allow duplicate applications for a user" do
+    @application.save
+    assert @application.valid?
+
+    @dup_application = @application.dup
+    assert_raise ActiveRecord::RecordNotUnique do 
+      @dup_application.save
+    end
+  end
 end
