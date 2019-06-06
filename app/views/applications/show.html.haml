@@ -1,2 +1,15 @@
-%h1= @application.id
-
+.d-flex.justify-content-center
+    %div.mt-4{style: "width: 70%"}
+        .card
+            .card-header
+                .d-flex.justify-content-between
+                    %div.align-self-center Application Details
+                    %d-flex.flex-column
+                        %div Current Status
+                        .d-flex.justify-content-center
+                            %span.badge.badge-pill.badge-primary.status-pill= @application.status.capitalize
+            .card-body
+                %h6.card-title= "Candidate Name: #{@application.candidate_id}"
+                %p.pt-2= "Applying For:  #{@application.role}"
+                %p= "Experience: #{@application.experience} years"
+                = link_to "Resume", "#"

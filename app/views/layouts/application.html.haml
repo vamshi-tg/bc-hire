@@ -11,5 +11,5 @@
     - flash.each do |message_type, message|
       = content_tag(:div, message, class: "alert alert-#{message_type}")
     = yield
-    .d-flex.mt-5.justify-content-center
-      .p-4{style: "border: 1px solid black"}= debug(params) if Rails.env.development?
+    -# .d-flex.mt-5.justify-content-center
+    -#   .p-4{style: "border: 1px solid black"}= debug(params) if Rails.env.development?
