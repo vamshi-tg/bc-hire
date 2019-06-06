@@ -15,7 +15,7 @@
 end
 
 
-candidates = Candidate.order(:created_at).take(20)
+candidates = Candidate.order(:created_at).take(30)
 roles = ["Full Stack Developer", "Web Developer", "Graphic Designer"]
 candidates.each do|candidate| 
     role = roles[rand 0..2]

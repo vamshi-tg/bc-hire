@@ -1,15 +1,14 @@
 = render "application_header"
 
-.container
-    .row
-        -# = will_paginate @applications, list_classes: %w(pagination justify-content-end)
-    %table.table.table-hover
+.d-flex.flex-column
+    %table.table.table-hover.mt-4
         %thead
             %tr
                 %th Application_Id
                 %th Candidate_Id
                 %th Role
                 %th Experience
+                %th Actions
         %tbody
             - @applications.each do |application|
                 %tr
@@ -17,5 +16,5 @@
                     %td= application.candidate_id
                     %td= application.role
                     %td= application.experience
-                    -# %td= link_to "Edit", edit_candidate_path(candidate)
-    -# = will_paginate @candidates,  list_classes: %w(pagination justify-content-end)   
+                    %td= link_to "View", application_path(application)
+    .mt-2= will_paginate @applications,  list_classes: %w(pagination justify-content-center)   
