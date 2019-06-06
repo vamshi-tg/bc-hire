@@ -16,3 +16,5 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+//= require moment
+//= require tempusdominus-bootstrap-4.js

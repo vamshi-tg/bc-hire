@@ -1,0 +1,54 @@
+.d-flex.flex-column.h-100.justify-content-top.align-items-center.new-interview-container
+    .d-flex.flex-column.h-100.w-50
+        = form_for :candidate, url: '#', local: true do |f| 
+            -# = render 'shared/error_messages', object: :candidate
+            .m-3
+                = f.label :round_name
+                = f.text_field :round_name, class: 'form-control'
+
+            .m-3            
+                = f.label :email 
+                = f.email_field :email, class: 'form-control'
+
+            .m-3
+                = f.label :interviewer
+                = f.select :interviewer, options_for_select(interviewers), prompt: 'Select Role', class: 'select-role'
+
+            .d-flex
+                - provide(:obj, "candidate")
+                .m-3.w-40 
+                    = f.label :date
+                    - provide(:scheduled_on, "scheduled_on") 
+                    = render 'date'
+
+                .m-3.w-30
+                    = f.label :start_time
+                    - provide(:start_time, "start_time")                
+                    = render 'start_time'
+
+                .m-3.w-30
+                    = f.label :end_time
+                    - provide(:end_time, "end_time") 
+                    = render 'end_time'
+
+            .d-flex.justify-content-center
+                = f.submit "Schedule", class: "btn btn-primary"
+
+:javascript
+    $(function () {
+        $('#start_time_picker').datetimepicker({
+            format: 'LT'
+        });
+    });
+
+    $(function () {
+        $('#end_time_picker').datetimepicker({
+            format: 'LT'
+        });
+    });
+
+    $(function () {
+        $('#date_picker').datetimepicker({
+            format: 'LT'
+        });
+    });

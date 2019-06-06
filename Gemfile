@@ -14,6 +14,8 @@ gem 'bootstrap',    '4.0.0'
 gem 'will_paginate', '3.1.6'
 gem 'will_paginate-bootstrap4'
 gem 'carrierwave',   '1.2.2'
+gem 'bootstrap4-datetime-picker-rails'
+gem "font-awesome-rails"
 
 
 group :development, :test do

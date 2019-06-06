@@ -7,4 +7,8 @@ class ApplicationsController < ApplicationController
         applications = Application.eager_load(:candidate).where(id: params[:id])
         @application = applications.first
     end
+
+    def create_interview
+        
+    end
 end

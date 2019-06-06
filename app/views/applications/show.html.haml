@@ -7,10 +7,16 @@
                     %d-flex.flex-column
                         %div Current Status
                         .d-flex.justify-content-center
-                            %span.badge.badge-pill.badge-primary.status-pill= @application.status.capitalize
+                            %span.badge.badge-pill.badge-secondary.status-pill= @application.status.capitalize
             .card-body
                 %h6.card-title= "Candidate Name: #{@application.candidate.name}"
                 %p.pt-2= "Candidate E-mail:  #{@application.candidate.email}"
                 %p= "Applying For:  #{@application.role}"
                 %p= "Experience: #{@application.experience} years"
                 = link_to "Resume", "#"
+                -# TODO:// Check another way to do this
+                .d-flex.flex-row-reverse
+                    = link_to '<button class="btn btn-primary">Schedule Interview</button>'.html_safe, interview_new_path
+
+
+                    

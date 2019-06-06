@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   post '/candidate/application', to: "candidates#create_application_for_candidate"
   get '/candidate/application/new', to:"candidates#new_application_for_candidate", as: "new_candidate_application"
+
+  get '/interview/new', to:"applications#create_interview"
   resources :candidates
   resources :applications, only: [:index, :show]
 end

@@ -1,0 +1,7 @@
+- input_name= "#{yield(:obj)}[#{yield(:scheduled_on)}]}"
+
+%div{class: "input-group date", id: "date_picker", "data-target-input": "nearest"}
+    %input{name: "#{input_name}", class: "form-control datetimepicker-input", "data-target": "#date_picker", type: "text"}
+        .input-group-append{"data-target": "#date_picker", "data-toggle": "datetimepicker"}
+            .input-group-text
+                %i.fa.fa-calendar
