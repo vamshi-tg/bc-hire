@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+chandler:
+  name: "Chandler Bing"
+  role: "interviewer"
+
+rachel:
+  name: "Rachel Green"
+  role: "manager"
