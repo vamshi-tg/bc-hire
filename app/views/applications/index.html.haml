@@ -1,4 +1,21 @@
-= render 'application_header'
+= render "application_header"
 
-%h1 All Application
-
+.container
+    .row
+        -# = will_paginate @applications, list_classes: %w(pagination justify-content-end)
+    %table.table.table-hover
+        %thead
+            %tr
+                %th Application_Id
+                %th Candidate_Id
+                %th Role
+                %th Experience
+        %tbody
+            - @applications.each do |application|
+                %tr
+                    %td= application.id
+                    %td= application.candidate_id
+                    %td= application.role
+                    %td= application.experience
+                    -# %td= link_to "Edit", edit_candidate_path(candidate)
+    -# = will_paginate @candidates,  list_classes: %w(pagination justify-content-end)   

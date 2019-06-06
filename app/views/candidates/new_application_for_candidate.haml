@@ -22,5 +22,17 @@
                         = application_form.label :role
                         = application_form.select :role, options_for_select(roles), prompt: 'Select Role', class: 'select-role'
 
+                    .mt-3
+                        = application_form.label :resume
+                        = application_form.file_field :resume, accept: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/msword',class: 'form-control-file'
+
             .d-flex.justify-content-center
                 = candidate_form.submit "Submit", class: "btn btn-primary"
+
+:javascript
+    $('#candidate_applications_attributes_0_resume').bind('change', function() {
+        var size_in_megabytes = this.files[0].size/1024/1024;
+        if (size_in_megabytes > 5) {
+            alert('Maximum file size is 5MB. Please choose a smaller file.');
+         }
+    });

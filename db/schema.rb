@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190605105938) do
+ActiveRecord::Schema.define(version: 20190605180028) do
 
   create_table "applications", force: :cascade do |t|
     t.integer "experience"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20190605105938) do
     t.integer "candidate_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "resume"
     t.index ["candidate_id", "role"], name: "index_applications_on_candidate_id_and_role", unique: true
     t.index ["candidate_id"], name: "index_applications_on_candidate_id"
   end
@@ -25,7 +26,6 @@ ActiveRecord::Schema.define(version: 20190605105938) do
   create_table "candidates", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.integer "experience"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_candidates_on_email", unique: true

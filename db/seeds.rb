@@ -9,9 +9,16 @@
 50.times do |n|
     name = Faker::Name.name
     email = "example-#{n}@gmail.com"
-    experience = rand 1..12
     Candidate.create!(
         name: name,
-        email: email,
-        experience: experience)  
+        email: email)  
+end
+
+
+candidates = Candidate.order(:created_at).take(20)
+roles = ["Full Stack Developer", "Web Developer", "Graphic Designer"]
+candidates.each do|candidate| 
+    role = roles[rand 0..2]
+    experience = rand 1..10
+    candidate.applications.create!(role: role, experience: experience) 
 end

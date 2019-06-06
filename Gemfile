@@ -13,6 +13,8 @@ gem 'faker',        '1.7.3'
 gem 'bootstrap',    '4.0.0'
 gem 'will_paginate', '3.1.6'
 gem 'will_paginate-bootstrap4'
+gem 'carrierwave',   '1.2.2'
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

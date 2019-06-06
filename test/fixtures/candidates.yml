@@ -3,9 +3,7 @@
 jon_snow:
   name: Jon Snow
   email: jhon_snow@gmail.com
-  experience: 5
 
 two:
   name: MyString
   email: MyString
-  experience: 

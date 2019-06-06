@@ -7,13 +7,11 @@
             %tr
                 %th Name
                 %th Email
-                %th Experience
                 %th Action
         %tbody
             - @candidates.each do |candidate|
                 %tr
                     %td= candidate.name
                     %td= candidate.email
-                    %td= candidate.experience
                     %td= link_to "Edit", edit_candidate_path(candidate)
     = will_paginate @candidates,  list_classes: %w(pagination justify-content-end)   
