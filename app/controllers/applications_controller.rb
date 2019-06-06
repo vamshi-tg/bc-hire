@@ -4,6 +4,7 @@ class ApplicationsController < ApplicationController
     end
 
     def show
-        @application = Application.find(params[:id])
+        applications = Application.eager_load(:candidate).where(id: params[:id])
+        @application = applications.first
     end
 end

@@ -9,7 +9,8 @@
                         .d-flex.justify-content-center
                             %span.badge.badge-pill.badge-primary.status-pill= @application.status.capitalize
             .card-body
-                %h6.card-title= "Candidate Name: #{@application.candidate_id}"
-                %p.pt-2= "Applying For:  #{@application.role}"
+                %h6.card-title= "Candidate Name: #{@application.candidate.name}"
+                %p.pt-2= "Candidate E-mail:  #{@application.candidate.email}"
+                %p= "Applying For:  #{@application.role}"
                 %p= "Experience: #{@application.experience} years"
                 = link_to "Resume", "#"

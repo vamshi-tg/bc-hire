@@ -5,16 +5,18 @@
         %thead
             %tr
                 %th Application_Id
-                %th Candidate_Id
-                %th Role
+                %th Candidate Name
+                %th Candidate Email
                 %th Experience
+                %th Applying For
                 %th Actions
         %tbody
             - @applications.each do |application|
                 %tr
                     %td= application.id
-                    %td= application.candidate_id
-                    %td= application.role
+                    %td= application.candidate.name
+                    %td= application.candidate.email
                     %td= application.experience
+                    %td= application.role
                     %td= link_to "View", application_path(application)
     .mt-2= will_paginate @applications,  list_classes: %w(pagination justify-content-center)   
