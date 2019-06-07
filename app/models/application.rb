@@ -1,4 +1,5 @@
 class Application < ApplicationRecord
+  has_many :interviews
   belongs_to :candidate
 
   validates :role, presence: true

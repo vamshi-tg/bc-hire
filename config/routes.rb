@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   get '/interview/new', to:"applications#create_interview"
   resources :candidates
   resources :applications, only: [:index, :show]
+  resources :interviews, only: [:new]
 end
