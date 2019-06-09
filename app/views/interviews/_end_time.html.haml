@@ -1,0 +1,7 @@
+-# - input_name= "#{yield(:obj)}[#{yield(:end_time)}]}"
+
+%div{class: "input-group date", id: "end_time_picker", "data-target-input": "nearest"}
+    %input{name: "interview[end_time]", class: "form-control datetimepicker-input", "data-target": "#end_time_picker", type: "text"}
+        .input-group-append{"data-target": "#end_time_picker", "data-toggle": "datetimepicker"}
+            .input-group-text
+                %i.fa.fa-clock-o
