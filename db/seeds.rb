@@ -28,4 +28,5 @@ end
 5.times do |n|
     name = Faker::Name.name
     role = "Interviewer"
+    Employee.create!(name: name, role: role)
 end

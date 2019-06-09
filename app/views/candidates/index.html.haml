@@ -1,8 +1,9 @@
-.container
-    .row
-        %button.btn.btn-outline-primary.btn-sm= link_to "Add Candidate", new_candidate_path
-        = will_paginate @candidates, list_classes: %w(pagination justify-content-end)
-    %table.table.table-hover
+.d-flex.flex-column
+    .d-flex.mt-2.justify-content-end
+        = will_paginate @candidates
+        .p-2
+            %button.btn.btn-outline-primary.btn-sm= link_to "Add Candidate", new_candidate_path
+    %table.table.table-hover.mt-4
         %thead
             %tr
                 %th Name
@@ -14,4 +15,4 @@
                     %td= candidate.name
                     %td= candidate.email
                     %td= link_to "Edit", edit_candidate_path(candidate)
-    = will_paginate @candidates,  list_classes: %w(pagination justify-content-end)   
+    .mt-2= will_paginate @candidates,  list_classes: %w(pagination justify-content-center)
