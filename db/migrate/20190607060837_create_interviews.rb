@@ -11,8 +11,6 @@ class CreateInterviews < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :interviews, :application
-    add_index :interviews, :interviewer_id
     add_index :interviews, [:interviewer_id, :application_id, :start_time, :end_time], unique: true, name: 'by_interviewier_and_application'
   end
 end

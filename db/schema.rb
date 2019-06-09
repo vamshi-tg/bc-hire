@@ -50,8 +50,6 @@ ActiveRecord::Schema.define(version: 20190607060837) do
     t.datetime "updated_at", null: false
     t.index ["application_id"], name: "index_interviews_on_application_id"
     t.index ["interviewer_id", "application_id", "start_time", "end_time"], name: "by_interviewier_and_application", unique: true
-    t.index ["interviewer_id"], name: "index_interviews_on_interviewer_id"
-    t.index [nil], name: "index_interviews_on_application"
   end
 
 end
