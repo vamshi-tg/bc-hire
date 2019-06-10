@@ -10,6 +10,7 @@ class InterviewsController < ApplicationController
     begin
       @interview = Interview.new(interview_params)
       save_interview(@interview)
+      update_application_status(@interview)
     rescue Exceptions::InvalidTimeSlotException
       redirect_to_new_application_interview_path(flash: { danger: "Invalid time slot"})
 
@@ -51,5 +52,11 @@ class InterviewsController < ApplicationController
         end
         
         return name_id_map
+    end
+
+    def update_application_status(interview)
+      if interview.application.status == "Open"
+        interview.application.update_attribute(:status, "In Progress" )
+      end
     end
 end
