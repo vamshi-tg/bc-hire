@@ -28,7 +28,8 @@ class ApplicationsController < ApplicationController
     def search
         search_query = params[:search]
         if search_query.present?
-            @applications = Application.where('role LIKE ?', "%#{search_query}%").paginate(page: params[:page], per_page: 10)
+            conditions = 'candidates.name LIKE :query OR candidates.email LIKE :query OR applications.experience LIKE :query OR applications.role LIKE :query'
+            @applications = Application.eager_load(:candidate).where(conditions, query: "%#{search_query}%").paginate(page: params[:page], per_page: 10)
             render 'index'
         else
             redirect_to applications_path
