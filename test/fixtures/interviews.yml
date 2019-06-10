@@ -3,9 +3,9 @@
 
 one:
   round_name: "First Round"
-  scheduled_on: Time.now
-  start_time: Time.now
-  end_time: Time.now
+  scheduled_on: <%= Date.today %>
+  start_time: <%= 2.hours.ago %>
+  end_time: <%= 1.hours.ago %>
   interviewer: chandler
   application: jon_snow_app_1
 

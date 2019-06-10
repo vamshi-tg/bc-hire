@@ -6,24 +6,41 @@ class InterviewsController < ApplicationController
     render 'new'
   end
 
-  def create
-    @interview = Interview.new(interview_params)
-    # debugger
-    if @interview.save
-      flash[:success] = "Sucess"
-      redirect_to root_path
-    else
-      flash[:danger] = "Failure"
-      redirect_to root_path
+  def create_interview_for_application
+    begin
+      @interview = Interview.new(interview_params)
+      save_interview(@interview)
+    rescue Exceptions::InvalidTimeSlotException
+      redirect_to_new_application_interview_path(flash: { danger: "Invalid time slot"})
+
+    rescue ActiveRecord::RecordNotUnique
+      redirect_to_new_application_interview_path(flash: { danger: "Interviewer not available" })
     end
   end
 
   private
+    def save_interview(interview)
+      if interview.save
+        flash[:success] = "Sucess"
+        redirect_to application_path(application_id_param)
+      else
+        redirect_to_new_application_interview_path(flash: { danger: interview.errors.full_messages.join(', ') })
+      end
+    end
+
     def interview_params
       all_params = {}
       all_params = params.require(:interview).permit(:round_name, :interviewer_id, :scheduled_on, :start_time, :end_time)
-      all_params['application_id'] = params[:app_id].to_s
+      all_params[:application_id] = params[:application_id]
       return all_params
+    end
+
+    def application_id_param
+      return {id: params[:application_id]}
+    end
+
+    def redirect_to_new_application_interview_path(flash)
+      redirect_to application_new_interview_path(application_id_param), flash
     end
 
     def get_interviewer_name_and_id_map

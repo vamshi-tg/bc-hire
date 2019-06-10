@@ -1,6 +1,6 @@
 .d-flex.flex-column.h-100.justify-content-top.align-items-center.new-interview-container
     .d-flex.flex-column.h-100.w-50
-        = form_for @interview, url: interviews_path, local: true do |f| 
+        = form_for @interview, url: application_interview_create_path(application_id: @application_id), local: true do |f| 
             = render 'shared/error_messages', object: @interview
             .m-3
                 = f.label :round_name
@@ -11,7 +11,7 @@
                 = f.select :interviewer_id, options_for_select(@interviewers), prompt: 'Select Role', class: 'select-role'
 
             .d-flex
-                - provide(:obj, "interview")
+                -# - provide(:obj, "interview")
                 .m-3.w-40 
                     = f.label :date
                     -# - provide(:scheduled_on, "scheduled_on")
@@ -27,26 +27,22 @@
                     -# - provide(:end_time, "end_time")
                     = render 'end_time'
 
-                = hidden_field_tag :app_id, @application_id
+                = hidden_field_tag :application_id, @application_id
 
             .d-flex.justify-content-center
                 = f.submit "Schedule", class: "btn btn-primary"
 
 :javascript
     $(function () {
+         $('#date_picker').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+
         $('#start_time_picker').datetimepicker({
             format: 'LT'
         });
-    });
 
-    $(function () {
         $('#end_time_picker').datetimepicker({
             format: 'LT'
-        });
-    });
-
-    $(function () {
-        $('#date_picker').datetimepicker({
-            format: 'L'
         });
     });

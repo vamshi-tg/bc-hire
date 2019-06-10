@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20190607060837) do
   create_table "interviews", force: :cascade do |t|
     t.string "round_name"
     t.date "scheduled_on"
-    t.time "start_time"
-    t.time "end_time"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.integer "interviewer_id"
     t.integer "application_id"
     t.datetime "created_at", null: false

@@ -3,8 +3,8 @@ class CreateInterviews < ActiveRecord::Migration[5.1]
     create_table :interviews do |t|
       t.string :round_name
       t.date :scheduled_on
-      t.time :start_time
-      t.time :end_time
+      t.datetime :start_time
+      t.datetime :end_time
       t.integer :interviewer_id
       t.references :application, foreign_key: true
 
