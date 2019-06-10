@@ -25,6 +25,16 @@ class ApplicationsController < ApplicationController
         end
     end
 
+    def search
+        search_query = params[:search]
+        if search_query.present?
+            @applications = Application.where('role LIKE ?', "%#{search_query}%").paginate(page: params[:page], per_page: 10)
+            render 'index'
+        else
+            redirect_to applications_path
+        end
+    end
+
     private
         def application_params
             params.require(:application).permit(:status)
