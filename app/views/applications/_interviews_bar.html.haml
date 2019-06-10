@@ -2,7 +2,7 @@
     .d-flex.flex-column{style: "width: 70%"}
         %H3
             Interviews
-        .d-flex.bg-light.p-2.mt-2.justify-content-center
+        .d-flex.bg-light.p-2.mt-2.justify-content-center.border.rounded
             - interviews.each_with_index do |interview, index|
                 = link_to application_interview_path(id: application.id, interview_id: interview.id) do
                     %button.btn-lg.px-4.btn-dark.mx-4= index+1
