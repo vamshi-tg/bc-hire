@@ -21,7 +21,7 @@ roles = ["Full Stack Developer", "Web Developer", "Graphic Designer"]
 candidates.each do|candidate| 
     role = roles[rand 0..2]
     experience = rand 1..10
-    candidate.applications.create!(role: role, experience: experience) 
+    candidate.applications.create!(role: role, experience: experience)
 end
 
 # Employee

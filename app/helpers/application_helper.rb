@@ -7,4 +7,8 @@ module ApplicationHelper
     def roles
         ["Full Stack Developer", "Web Developer", "Graphic Designer"]
     end
+
+    def format_time(time)
+        time
+    end
 end

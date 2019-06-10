@@ -1,0 +1,18 @@
+.d-flex.justify-content-center
+    = render "application_card", application: @application
+
+.d-flex.justify-content-center.mt-4
+    = render "interviews_bar", application: @application, interviews: @interviews
+
+.d-flex.justify-content-center.mt-2.mb-5
+    %div{style: "width: 70%"}
+        .card
+            .card-header
+                .d-flex.justify-content-between
+                    %div.align-self-center Interview Details
+            .card-body
+                %h6.card-title= "Round Name: #{@interview.round_name}"
+                %p.pt-2= "Interview Date:  #{@interview.scheduled_on}"
+                .d-flex
+                    %p= "Interview Time Slot: #{format_time(@interview.start_time)} - #{format_time(@interview.end_time)}"
+                %p= "Interviewer: #{@interview.interviewer.name}"
