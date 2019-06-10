@@ -1,4 +1,11 @@
 %div.mt-4{style: "width: 70%"}
+    .d-flex.justify-content-end.my-2
+        Update Application Status:
+        .d-flex
+            = render 'edit_application_status', application: application, status: "Accept"
+            = render 'edit_application_status', application: application, status: "On Hold"
+            = render 'edit_application_status', application: application, status: "Reject"
+
     .card
         .card-header
             .d-flex.justify-content-between

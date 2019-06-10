@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   get '/applications/:id/interview/:interview_id', to: "applications#show_application_interview", as: "application_interview"
 
   resources :candidates
-  resources :applications, only: [:index, :show]
+  resources :applications, only: [:index, :show, :update]
 
 end

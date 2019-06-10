@@ -1,0 +1,11 @@
+.ml-2
+    = form_for(application, url: "#") do |f|
+        - if status === "Accept"
+            = hidden_field_tag 'application[status]', "Accepted"
+            = f.submit status, class: "btn btn-success"
+        - elsif status === "On Hold"
+            = hidden_field_tag 'application[status]', "On Hold"
+            = f.submit status, class: "btn btn-warning"
+        - elsif status === "Reject"
+            = hidden_field_tag 'application[status]', "Rejected"
+            = f.submit status, class: "btn btn-danger"
