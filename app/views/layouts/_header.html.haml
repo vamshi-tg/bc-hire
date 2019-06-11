@@ -1,9 +1,9 @@
-%nav.navbar.navbar-expand-sm.bg-dark.navbar-dark.sticky-top
-  = link_to "BC HIRE", root_path, id: "logo", class: "navbar-brand"
-  %ul.navbar-nav.ml-auto
-    %li.nav-item= link_to "Home", root_path, class: "nav-link"
-    %li.nav-item= link_to "Candidates", candidates_path, class: "nav-link"
-    %li.nav-item= link_to "Applications", applications_path, class: "nav-link"
-    %li.nav-item= link_to "About", '#', class: "nav-link"
-    -if logged_in?
-      %li.nav-item= link_to "Logout", logout_url, class: "nav-link"
+- unless login_url?
+  %nav.navbar.navbar-expand-sm.bg-dark.navbar-dark.sticky-top
+    = link_to "BC HIRE", root_path, id: "logo", class: "navbar-brand"
+    %ul.navbar-nav.ml-auto
+      %li.nav-item= link_to "Home", root_path, class: "nav-link"
+      %li.nav-item= link_to "Candidates", candidates_path, class: "nav-link"
+      %li.nav-item= link_to "Applications", applications_path, class: "nav-link"
+      -if logged_in?
+        %li.nav-item= link_to "Logout", logout_url, class: "nav-link"

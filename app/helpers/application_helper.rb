@@ -11,4 +11,8 @@ module ApplicationHelper
     def format_time(time)
         time
     end
+
+    def login_url?
+        request.path == login_path
+    end
 end
