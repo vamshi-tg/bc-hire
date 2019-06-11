@@ -26,7 +26,8 @@ end
 
 # Employee
 5.times do |n|
-    name = Faker::Name.name
+    first_name = Faker::Name.first_name
+    last_name = Faker::Name.last_name
     role = "Interviewer"
-    Employee.create!(name: name, role: role)
+    Employee.create!(first_name: first_name, last_name: last_name,role: role)
 end

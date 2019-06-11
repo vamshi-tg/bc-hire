@@ -8,9 +8,9 @@
 
             .m-3
                 = f.label :interviewer
-                = f.select :interviewer_id, options_for_select(@interviewers), prompt: 'Select Role', class: 'select-role'
+                = f.select :interviewer_id, options_for_select(@interviewers), prompt: 'Select Interviewer', class: 'select-role'
 
-            .d-flex
+            .d-flex.justify-content-between
                 -# - provide(:obj, "interview")
                 .m-3.w-40 
                     = f.label :date

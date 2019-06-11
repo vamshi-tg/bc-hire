@@ -15,4 +15,4 @@
                 %p.pt-2= "Interview Date:  #{@interview.scheduled_on}"
                 .d-flex
                     %p= "Interview Time Slot: #{format_time(@interview.start_time)} - #{format_time(@interview.end_time)}"
-                %p= "Interviewer: #{@interview.interviewer.name}"
+                %p= "Interviewer: #{get_name(@interview.interviewer)}"
