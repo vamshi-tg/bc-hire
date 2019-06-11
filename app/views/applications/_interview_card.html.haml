@@ -4,10 +4,16 @@
             .d-flex.justify-content-between
                 %div.align-self-center Interview Details
         .card-body
-            %h6.card-title= "Round Name: #{interview.round_name}"
-            %p.pt-2= "Interview Date:  #{interview.scheduled_on}"
+            %h6.card-title
+                = "Round Name: #{interview.round_name}"
+            %p.pt-2
+                = "Interview Date:  #{interview.scheduled_on}"
             .d-flex
-                %p= "Interview Time Slot: #{format_time(interview.start_time)} - #{format_time(interview.end_time)}"
+                %p="Interview Time Slot: #{format_time(interview.start_time)} - #{format_time(interview.end_time)}"
             %p= "Interviewer: #{get_name(interview.interviewer)}"
         .card-footer
-            = link_to "Comments", '#'
+            %p
+                Comments
+            = render 'feedbacks/interview_comment_form', interview: interview, application: application
+            %hr
+            = render 'feedbacks/comment', comments: comments

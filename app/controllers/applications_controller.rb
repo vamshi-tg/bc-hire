@@ -13,6 +13,7 @@ class ApplicationsController < ApplicationController
         @application = Application.find_by(id: params[:id])
         @interviews = @application.interviews
         @interview = @interviews.find_by(id: params[:interview_id])
+        @comments = Feedback.where(interview_id: params[:interview_id])
     end
 
     def update

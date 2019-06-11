@@ -1,8 +1,8 @@
 .d-flex.justify-content-center
     = render "application_card", application: @application
 
-.d-flex.justify-content-center.mt-4
+.d-flex.justify-content-center.mt-4{id: "interviews-timeline"}
     = render "interviews_bar", application: @application, interviews: @interviews
 
 .d-flex.justify-content-center.mt-2.mb-5
-    = render "interview_card", application: @application, interview: @interview
+    = render "interview_card", application: @application, interview: @interview, comments: @comments

@@ -1,0 +1,10 @@
+- comments.each do |comment|
+    .d-flex.p-1
+        .d-flex-column{:id => "comment-#{comment.id}"}
+            .font-weight-bold
+                = get_name(comment.interviewer)
+            .font-weight-normal
+                = comment.content
+            .text-muted
+                #{time_ago_in_words(comment.created_at)} ago.
+    %hr

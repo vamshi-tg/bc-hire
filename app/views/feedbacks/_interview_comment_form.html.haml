@@ -1,0 +1,6 @@
+= form_for(:feedback, url: interview_comments_path(interview_id: "#{interview.id}")) do |f|
+    = hidden_field_tag :application_id, "#{application.id}"
+    .d-flex.align-items-end
+        = f.text_area :content, class: 'form-control'
+        .mx-1
+            = f.submit "Post", class: "btn btn-primary"

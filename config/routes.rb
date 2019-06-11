@@ -17,9 +17,13 @@ Rails.application.routes.draw do
   get '/applications/:id/interview/new', to: "interviews#application_new_interview", as: "application_new_interview"
   post '/applications/:application_id/interviews', to: "interviews#create_interview_for_application", as: "application_interview_create"
 
+  # Display interview for application
   get '/applications/:id/interview/:interview_id', to: "applications#show_application_interview", as: "application_interview"
 
+  # Search applications
   get '/applications/search', to: "applications#search"
+
+  post '/interview/:id/comment', to: "feedbacks#create", as: "interview_comments"
   resources :candidates
   resources :applications, only: [:index, :show, :update]
 
