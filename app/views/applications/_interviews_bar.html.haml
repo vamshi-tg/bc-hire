@@ -4,5 +4,5 @@
             Interviews
         .d-flex.bg-light.p-2.mt-2.justify-content-center.border.rounded
             - interviews.each_with_index do |interview, index|
-                = link_to application_interview_path(id: application.id, interview_id: interview.id) do
-                    %button.btn-lg.btn-dark.mx-4.rounded-circle= index+1
+                = link_to application_interview_path(id: application.id, interview_id: interview.id, anchor: "interview-#{index+1}") do
+                    %button.btn-lg.btn-dark.mx-4.rounded-circle{id: "interview-#{index+1}"}= index+1
