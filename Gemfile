@@ -16,7 +16,7 @@ gem 'will_paginate-bootstrap4'
 gem 'carrierwave',   '1.2.2'
 gem 'bootstrap4-datetime-picker-rails'
 gem "font-awesome-rails"
-
+gem 'omniauth-google-oauth2'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

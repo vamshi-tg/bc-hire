@@ -5,3 +5,5 @@
     %li.nav-item= link_to "Candidates", candidates_path, class: "nav-link"
     %li.nav-item= link_to "Applications", applications_path, class: "nav-link"
     %li.nav-item= link_to "About", '#', class: "nav-link"
+    -if logged_in?
+      %li.nav-item= link_to "Logout", logout_url, class: "nav-link"
