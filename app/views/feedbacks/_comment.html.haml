@@ -1,10 +1,12 @@
 - comments.each do |comment|
     .d-flex.p-1
+        %div.profile-pic.mr-2
+            = image_tag comment.interviewer.picture, alt: comment.interviewer.first_name, class: "profile-pic"
         .d-flex-column{:id => "comment-#{comment.id}"}
             .font-weight-bold
                 = get_name(comment.interviewer)
             .font-weight-normal
                 = comment.content
-            .text-muted
+            .text-muted.comment-timestamp
                 #{time_ago_in_words(comment.created_at)} ago.
     %hr

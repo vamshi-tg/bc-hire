@@ -11,9 +11,9 @@ class ApplicationsController < ApplicationController
 
     def show_application_interview
         @application = Application.find_by(id: params[:id])
-        @interviews = @application.interviews
+        @interviews = @application.interviews.order(:created_at)
         @interview = @interviews.find_by(id: params[:interview_id])
-        @comments = Feedback.where(interview_id: params[:interview_id])
+        @comments = Feedback.where(interview_id: params[:interview_id]).order(:created_at)
     end
 
     def update
