@@ -8,6 +8,7 @@ class Interview < ApplicationRecord
   before_validation :parse_time
   validate :time_slot
 
+  has_many :feedback
   belongs_to :application
   belongs_to :interviewer, class_name: "Employee"
 

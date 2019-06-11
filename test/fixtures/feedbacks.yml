@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+feedback_one:
+  content: "First interview feedback"
+  interview: one
+  interviewer: chandler
+
+feeback_two:
+  content: "Second interview feedback"
+  interview: two
+  interviewer: rachel

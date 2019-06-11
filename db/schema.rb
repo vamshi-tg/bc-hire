@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190611060713) do
+ActiveRecord::Schema.define(version: 20190611091153) do
 
   create_table "applications", force: :cascade do |t|
     t.integer "experience"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 20190611060713) do
     t.string "last_name"
     t.string "picture"
     t.string "provider"
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.string "content"
+    t.integer "interviewer_id"
+    t.integer "interview_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["interview_id"], name: "index_feedbacks_on_interview_id"
   end
 
   create_table "interviews", force: :cascade do |t|
