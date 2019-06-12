@@ -65,6 +65,10 @@ html, body {
     font-size: 12px;
 }
 
+.item-2{
+    max-height: 100%;
+    overflow: auto;
+}
 header {
     background-color: grey;
     min-height: 50px;
