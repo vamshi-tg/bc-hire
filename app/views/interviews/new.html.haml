@@ -1,28 +1,30 @@
-.d-flex.flex-column.h-100.justify-content-top.align-items-center.new-interview-container
-    .d-flex.flex-column.h-100.w-50
+.d-flex.new-interview-container.justify-content-center.my-5
+    .d-flex.flex-column
+        .d-flex
+            %H1 Create Interview
         = form_for @interview, url: application_interview_create_path(application_id: @application_id), local: true do |f| 
             = render 'shared/error_messages', object: @interview
-            .m-3
+            .my-3
                 = f.label :round_name
                 = f.text_field :round_name, class: 'form-control'
 
-            .m-3
+            .my-3
                 = f.label :interviewer
                 = f.select :interviewer_id, options_for_select(@interviewers), prompt: 'Select Interviewer', class: 'select-role'
 
             .d-flex.justify-content-between
                 -# - provide(:obj, "interview")
-                .m-3.w-40 
+                .my-3.mr-2.w-40 
                     = f.label :date
                     -# - provide(:scheduled_on, "scheduled_on")
                     = render 'date'
 
-                .m-3.w-30
+                .my-3.mx-2.w-30
                     = f.label :start_time
                     -# - provide(:start_time, "start_time")                
                     = render 'start_time'
 
-                .m-3.w-30
+                .my-3.ml-2.w-30
                     = f.label :end_time
                     -# - provide(:end_time, "end_time")
                     = render 'end_time'

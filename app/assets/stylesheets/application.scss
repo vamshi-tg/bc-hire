@@ -29,6 +29,10 @@ html, body {
     height: 38px;
 }
 
+.new-interview-container{
+    flex-grow: 1;
+}
+
 #error_explanation {
     color: red;
 
@@ -69,6 +73,7 @@ html, body {
     max-height: 100%;
     overflow: auto;
 }
+
 header {
     background-color: grey;
     min-height: 50px;

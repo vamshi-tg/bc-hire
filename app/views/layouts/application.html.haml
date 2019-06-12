@@ -12,9 +12,11 @@
       %div.main-content.d-flex
         %div.item-1
           = render 'layouts/header'
-        %div.item-2.d-flex
-          - flash.each do |message_type, message|
-            = content_tag(:div, message, class: "alert alert-#{message_type}")
-          = yield
+        %div.item-2
+          %div.errors.my-2.mx-5
+            - flash.each do |message_type, message|
+              = content_tag(:div, message, class: "alert alert-#{message_type}")
+          .d-flex
+            = yield
       %footer
         Footer
