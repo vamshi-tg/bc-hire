@@ -17,4 +17,8 @@ module SessionsHelper
     def logged_in?
         !current_user.nil?
     end
+
+    def current_user_manager?
+        current_user.role == Employee::ROLE[:manager]
+    end
 end

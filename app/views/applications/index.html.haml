@@ -1,6 +1,7 @@
 .d-flex.flex-row-reverse.my-2.mx-5
-    %div
-        = link_to "Create Application", new_candidate_application_path, class: "btn btn-primary"
+    -if current_user_manager?
+        %div
+            = link_to "Create Application", new_candidate_application_path, class: "btn btn-primary"
     .mr-2
         = form_tag(applications_search_path, method: :get) do
             .d-flex

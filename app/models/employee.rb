@@ -2,6 +2,11 @@ class Employee < ApplicationRecord
     has_many :interviews, class_name: "Interview", foreign_key: "interviewer_id"
 	has_many :feedback, class_name: "Feedback", foreign_key: "interviewer_id"
 	
+	ROLE = {
+		manager: "manager",
+		interviewer: "interviewer"
+	}
+
     def self.find_or_create_from_auth_hash(auth)
         where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |employee|
 			employee.provider = auth.provider
