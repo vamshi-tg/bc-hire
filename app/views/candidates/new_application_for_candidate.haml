@@ -1,16 +1,18 @@
-.d-flex.justify-content-center.new-application-container
-    .d-flex.flex-column.h-100.w-50
+.d-flex.new-application-candidate-container.justify-content-center.my-5
+    .d-flex.flex-column.w-50
+        .d-flex
+            %H1 Create Application
         = form_for @candidate, url: candidate_application_path, local: true do |candidate_form| 
             = render 'shared/error_messages', object: @candidate
-            .m-3
+            .my-3
                 = candidate_form.label :name
                 = candidate_form.text_field :name, class: 'form-control'
 
-            .m-3            
+            .my-3            
                 = candidate_form.label :email 
                 = candidate_form.email_field :email, class: 'form-control'
 
-            .m-3
+            .my-3
                 = candidate_form.fields_for :applications, @candidate.applications do |application_form|
                     .mt-3
                         = application_form.label :experience
