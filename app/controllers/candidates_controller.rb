@@ -6,13 +6,13 @@ class CandidatesController < ApplicationController
         @candidate.applications.build
     end
 
-    # TODO-Complete this action. Currently not use
     def create
         @candidate = Candidate.new(candidate_params)
         if @candidate.save
+            flash[:success] = "Candidate Created"
             redirect_to candidates_path
         else
-            
+            render 'new'
         end
     end
 
