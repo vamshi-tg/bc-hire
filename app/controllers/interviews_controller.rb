@@ -1,6 +1,8 @@
 class InterviewsController < ApplicationController
   include InterviewsHelper
 
+  before_action :logged_in_user
+  
   def application_new_interview
     @application_id = params[:id]
     @interviewers = get_interviewer_name_and_id_map
