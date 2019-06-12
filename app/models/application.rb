@@ -8,6 +8,8 @@ class Application < ApplicationRecord
 
   mount_uploader :resume, ResumeUploader
 
+  default_scope -> { order(created_at: :desc)}
+
   STATUS = {
     accepted: "Accepted",
     rejected: "Rejected",

@@ -7,6 +7,8 @@ class Candidate < ApplicationRecord
 
     # Validations
     validates :name, presence: true
+
+    default_scope -> { order(created_at: :desc)}
     
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     validates :email, presence: true, length: { maximum: 255 },

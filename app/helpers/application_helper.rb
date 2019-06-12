@@ -13,6 +13,10 @@ module ApplicationHelper
         time.strftime("%I:%M %p")
     end
 
+    def get_date(time)
+        time.strftime("%d-%m-%Y")
+    end
+
     def login_url?
         request.path == login_path
     end

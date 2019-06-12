@@ -20,6 +20,8 @@
                     %th Candidate Email
                     %th Experience
                     %th Applying For
+                    %th Status
+                    %th Created At
                     %th Actions
             %tbody
                 - @applications.each do |application|
@@ -29,5 +31,7 @@
                         %td= application.candidate.email
                         %td= application.experience
                         %td= application.role
+                        %td= application.status
+                        %td= render 'shared/created_at_table_data', object: application
                         %td= link_to "View", application_path(application)
         .mt-2= will_paginate @applications,  list_classes: %w(pagination justify-content-center)   

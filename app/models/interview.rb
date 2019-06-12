@@ -4,7 +4,6 @@ class Interview < ApplicationRecord
   validates :end_time, presence: true
   validates :scheduled_on, presence: true
   
-
   before_validation :parse_time
   validate :time_slot
 

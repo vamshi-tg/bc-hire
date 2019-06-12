@@ -12,10 +12,12 @@
                     %th Name
                     %th Email
                     %th Action
+                    %th Created At
             %tbody
                 - @candidates.each do |candidate|
                     %tr
                         %td= candidate.name
                         %td= candidate.email
                         %td= link_to "Edit", edit_candidate_path(candidate)
+                        %td= render 'shared/created_at_table_data', object: candidate
         .mt-2= will_paginate @candidates,  list_classes: %w(pagination justify-content-center)
