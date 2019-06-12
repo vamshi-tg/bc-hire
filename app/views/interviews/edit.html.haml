@@ -1,0 +1,50 @@
+.d-flex.new-interview-container.justify-content-center.my-5
+    .d-flex.flex-column
+        .d-flex
+            %H1 Create Interview
+        = form_for @interview, url: application_interview_update_path(id: @application_id, interviewer_id: @interview_id), local: true do |f| 
+            = render 'shared/error_messages', object: @interview
+            .my-3
+                = f.label :round_name
+                = f.text_field :round_name, class: 'form-control'
+
+            .my-3
+                = f.label :interviewer
+                = f.select :interviewer_id, options_for_select(@interviewers), include_blank: 'Select Interviewer', class: 'select-role'
+
+            .d-flex.justify-content-between
+                -# - provide(:obj, "interview")
+                .my-3.mr-2.w-40 
+                    = f.label :date
+                    -# - provide(:scheduled_on, "scheduled_on")
+                    = render 'date'
+
+                .my-3.mx-2.w-30
+                    = f.label :start_time
+                    -# - provide(:start_time, "start_time")                
+                    = render 'start_time'
+
+                .my-3.ml-2.w-30
+                    = f.label :end_time
+                    -# - provide(:end_time, "end_time")
+                    = render 'end_time'
+
+                = hidden_field_tag :application_id, @application_id
+
+            .d-flex.justify-content-center
+                = f.submit "Update Interview", class: "btn btn-primary"
+
+:javascript
+    $(function () {
+         $('#date_picker').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+
+        $('#start_time_picker').datetimepicker({
+            format: 'LT'
+        });
+
+        $('#end_time_picker').datetimepicker({
+            format: 'LT'
+        });
+    });
