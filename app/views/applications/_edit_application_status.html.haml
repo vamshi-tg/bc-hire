@@ -1,11 +1,11 @@
 .ml-2
     = form_for(application, url: application_path) do |f|
-        - if status === "Accept"
-            = hidden_field_tag 'application[status]', "Accepted"
-            = f.submit status, class: "btn btn-success"
-        - elsif status === "On Hold"
-            = hidden_field_tag 'application[status]', "On Hold"
-            = f.submit status, class: "btn btn-warning"
-        - elsif status === "Reject"
-            = hidden_field_tag 'application[status]', "Rejected"
-            = f.submit status, class: "btn btn-danger"
+        - if button_value === "Accept"
+            = hidden_field_tag 'application[status]', Application::STATUS[:accepted]
+            = f.submit button_value, class: "btn btn-success", data: { confirm: "Application will be accepted. Are you sure?" }, disabled: disabled?(button_value, application.status) 
+        - elsif button_value === "On Hold"
+            = hidden_field_tag 'application[status]', Application::STATUS[:on_hold]
+            = f.submit button_value, class: "btn btn-warning", data: { confirm: "Application will be put on hold. Are you sure?" }, disabled: disabled?(button_value, application.status)
+        - elsif button_value === "Reject"
+            = hidden_field_tag 'application[status]', Application::STATUS[:rejected]
+            = f.submit button_value, class: "btn btn-danger", data: { confirm: "Application will be rejected. Are you sure?" }, disabled: disabled?(button_value, application.status)
