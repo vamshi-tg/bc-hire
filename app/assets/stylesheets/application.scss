@@ -92,6 +92,13 @@ footer {
 }
 
 .vertical-bar{
-    height: 100%;
+    flex-grow: 1
+}
+
+.nav-container {
+    height: 100%
+}
+
+.applications-index-container {
     flex-grow: 1
 }
