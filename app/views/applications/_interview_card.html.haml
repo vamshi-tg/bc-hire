@@ -9,7 +9,7 @@
             %p.pt-2
                 = "Interview Date:  #{interview.scheduled_on}"
             .d-flex
-                %p="Interview Time Slot: #{format_time(interview.start_time)} - #{format_time(interview.end_time)}"
+                %p="Interview Time Slot: #{formatted_time(interview.start_time)} - #{formatted_time(interview.end_time)}"
             %p= "Interviewer: #{get_name(interview.interviewer)}"
         .card-footer
             %p

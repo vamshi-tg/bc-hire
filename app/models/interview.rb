@@ -13,14 +13,31 @@ class Interview < ApplicationRecord
   belongs_to :interviewer, class_name: "Employee"
 
   private
+    DATE_FORMAT = "%d-%m-%Y"
+    TIME_FORMAT = "%I:%M %p"
+    TIMEZONE = "Kolkata"
+    DATETIME_ZONE_FORMAT = "#{DATE_FORMAT} #{TIME_FORMAT} %Z"
+
     def parse_time
+      # By default time is storing the wrong year. So, building the time with interview date.
+      # Also, storing the date and time in IST timezone. While saving it will automatically before do
+      # stored in UTC format.
+      # Time.strptime("19-06-2019 7:14 PM Kolkata", "%d-%m-%Y %I:%M %p %Z")
       unless self.start_time.nil?
-        self.start_time = Time.zone.parse("#{scheduled_on} #{start_time}")
+        datetime_zone_value = get_date_and_time(self.scheduled_on, self.start_time)
+        self.start_time = Time.strptime(datetime_zone_value, DATETIME_ZONE_FORMAT)
       end
 
       unless self.start_time.nil?
-        self.end_time = Time.zone.parse("#{scheduled_on} #{end_time}")
+        datetime_zone_value = get_date_and_time(self.scheduled_on, self.end_time)
+        self.end_time = Time.strptime(datetime_zone_value, DATETIME_ZONE_FORMAT)
       end
+    end
+
+    def get_date_and_time(scheduled_on, start_time)
+      date = scheduled_on.strftime(DATE_FORMAT)
+      time = start_time.strftime(TIME_FORMAT)
+      return "#{date} #{time} #{TIMEZONE}"
     end
 
     def time_slot

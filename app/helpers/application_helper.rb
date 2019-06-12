@@ -8,8 +8,9 @@ module ApplicationHelper
         ["Full Stack Developer", "Web Developer", "Graphic Designer"]
     end
 
-    def format_time(time)
-        time
+    def formatted_time(time)
+        time = time.in_time_zone("Kolkata")
+        time.strftime("%I:%M %p")
     end
 
     def login_url?
