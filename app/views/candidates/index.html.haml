@@ -1,18 +1,21 @@
-.d-flex.flex-column
-    .d-flex.mt-2.justify-content-end
-        = will_paginate @candidates
-        .p-2
-            %button.btn.btn-outline-primary.btn-sm= link_to "Add Candidate", new_candidate_path
-    %table.table.table-hover.mt-4
-        %thead
-            %tr
-                %th Name
-                %th Email
-                %th Action
-        %tbody
-            - @candidates.each do |candidate|
+.d-flex.flex-column.applications-index-container.m-5
+    .d-flex
+        %H1 Candidates
+    .d-flex.flex-row-reverse
+        -if current_user_manager?
+            %div
+                = link_to "Add Candidate", new_candidate_path, class: "btn btn-primary"
+    %d-flex.mt-4
+        %table.table.table-hover.border
+            %thead
                 %tr
-                    %td= candidate.name
-                    %td= candidate.email
-                    %td= link_to "Edit", edit_candidate_path(candidate)
-    .mt-2= will_paginate @candidates,  list_classes: %w(pagination justify-content-center)
+                    %th Name
+                    %th Email
+                    %th Action
+            %tbody
+                - @candidates.each do |candidate|
+                    %tr
+                        %td= candidate.name
+                        %td= candidate.email
+                        %td= link_to "Edit", edit_candidate_path(candidate)
+        .mt-2= will_paginate @candidates,  list_classes: %w(pagination justify-content-center)

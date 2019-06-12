@@ -17,8 +17,7 @@ class CandidatesController < ApplicationController
     end
 
     def index
-        @candidates = Candidate.all
-        @candidates = Candidate.paginate(page: params[:page])
+        @candidates = Candidate.paginate(page: params[:page], per_page: 10)
     end
 
     def show
