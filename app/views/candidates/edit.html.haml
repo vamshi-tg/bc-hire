@@ -1,6 +1,7 @@
 -provide(:url_path, candidate_path(@candidate))
 -provide(:button_text, "Update")
-%h1 Update Candidate Details
-.row
-    .col-md-6.offset-md-3
+.d-flex.new-application-candidate-container.justify-content-center.my-5
+    .d-flex.flex-column.w-50
+        .d-flex
+            %H1 Update Candidate Details
         = render 'form', object: @candidate

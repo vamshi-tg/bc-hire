@@ -1,6 +1,7 @@
 -provide(:url_path, candidates_path)
 -provide(:button_text, "Create")
-%h1 Create Candidate Details
-.row
-    .col-md-6.offset-md-3
+.d-flex.new-application-candidate-container.justify-content-center.my-5
+    .d-flex.flex-column.w-50
+        .d-flex
+            %H1 Create Candidate
         = render 'form', object: @candidate
