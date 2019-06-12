@@ -67,12 +67,12 @@ html, body {
 
 header {
     background-color: grey;
-    height: 50px;
+    min-height: 50px;
 }
 
 footer {
     background-color: grey;
-    height: 50px;
+    min-height: 50px;
 }
 
 .main-layout{
@@ -84,7 +84,7 @@ footer {
 }
 
 .main-content .item-1{
-    width: 240px;
+    min-width: 240px;
 }
 
 .main-content .item-2{
@@ -105,4 +105,13 @@ footer {
 
 .new-application-candidate-container {
     flex-grow: 1
+}
+
+.application-view-main-container{
+    flex-grow: 1;
+}
+
+.interview-card .comments{
+    max-height: 400px;
+    overflow: auto;
 }

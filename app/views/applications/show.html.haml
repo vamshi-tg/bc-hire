@@ -1,5 +1,5 @@
-.d-flex.justify-content-center
-    = render "application_card", application: @application
-
-.d-flex.justify-content-center.mt-4
-    = render "interviews_bar", application: @application, interviews: @interviews
+.d-flex.flex-column.application-view-main-container.mx-4.my-4
+    %div
+        = render "application_card", application: @application
+    %div.my-5
+        = render "interviews_bar", application: @application, interviews: @interviews
