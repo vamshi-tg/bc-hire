@@ -1,7 +1,7 @@
 - unless login_url?
-  %nav.navbar.navbar-expand-sm.bg-dark.navbar-dark.sticky-top
-    = link_to "BC HIRE", root_path, id: "logo", class: "navbar-brand"
-    %ul.navbar-nav.ml-auto
+  %nav.bg-dark.navbar-dark.vertical-bar
+    %ul.navbar-nav.m-2
+      = link_to "BC HIRE", root_path, id: "logo", class: "navbar-brand"
       %li.nav-item= link_to "Home", root_path, class: "nav-link"
       %li.nav-item= link_to "Candidates", candidates_path, class: "nav-link"
       %li.nav-item= link_to "Applications", applications_path, class: "nav-link"

@@ -6,10 +6,15 @@
     = render 'layouts/shim'
 
   %body
-    -# -unless yield(:login_screen)
-    = render 'layouts/header'
-    - flash.each do |message_type, message|
-      = content_tag(:div, message, class: "alert alert-#{message_type}")
-    = yield
-    -# .d-flex.mt-5.justify-content-center
-    -#   .p-4{style: "border: 1px solid black"}= debug(params) if Rails.env.development?
+    %div.d-flex.flex-column.main-layout
+      %header
+        Header
+      %div.main-content.d-flex
+        %div.item-1.d-flex
+          = render 'layouts/header'
+        %div.item-2.d-flex
+          - flash.each do |message_type, message|
+            = content_tag(:div, message, class: "alert alert-#{message_type}")
+          = yield
+      %footer
+        Footer

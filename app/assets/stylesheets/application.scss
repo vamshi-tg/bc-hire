@@ -20,9 +20,6 @@
 html, body {
     height: 100%;
 }
-body {
-    margin: 0;
-}
 .google-sign-in{
     text-align: center;
 }
@@ -66,4 +63,35 @@ body {
 
 .comment-timestamp{
     font-size: 12px;
+}
+
+header {
+    background-color: grey;
+    height: 50px;
+}
+
+footer {
+    background-color: grey;
+    height: 50px;
+}
+
+.main-layout{
+    height: 100%;
+}
+
+.main-content{
+    flex-grow: 1;
+}
+
+.main-content .item-1{
+    width: 240px;
+}
+
+.main-content .item-2{
+    flex-grow: 1;
+}
+
+.vertical-bar{
+    height: 100%;
+    flex-grow: 1
 }
