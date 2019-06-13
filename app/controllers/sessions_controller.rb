@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
     before_action :redirect_to_home, only: [:new]
+    layout "login", only: [:new]
 
     def new
     end

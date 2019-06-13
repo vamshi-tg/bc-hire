@@ -1,0 +1,17 @@
+!!! 5
+%html
+  %head
+    %title BC-Hire
+    = render 'layouts/rails_default' 
+    = render 'layouts/shim'
+
+  %body
+    %div.d-flex.flex-column.main-layout
+      %header
+        Header
+      %div.main-content.justify-content-center.d-flex
+        - flash.each do |message_type, message|
+          = content_tag(:div, message, class: "alert alert-#{message_type}")
+        = yield
+      %footer
+        Footer
