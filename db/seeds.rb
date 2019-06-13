@@ -28,6 +28,9 @@ end
 5.times do |n|
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
+    email = "#{first_name}.#{last_name}@example.com"
     role = "Interviewer"
-    Employee.create!(first_name: first_name, last_name: last_name,role: role)
+    provider = "google_oauth2"
+    uid = Faker::Number.number(10)
+    Employee.create!(first_name: first_name, last_name: last_name, email: email, role: role, provider: provider, uid: uid)
 end

@@ -17,5 +17,9 @@ class Employee < ApplicationRecord
 			employee.picture = auth.info.image
 			employee.save!
         end
-    end
+	end
+	
+	def self.managers_email_ids
+		Employee.select(:email).where(role: ROLE[:manager]).map{ |employee| employee.email}
+	end
 end

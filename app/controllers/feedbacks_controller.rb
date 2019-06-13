@@ -6,6 +6,7 @@ class FeedbacksController < ApplicationController
     def create
         @feedback = current_user.feedback.build(feedback_params)
         @feedback.interview_id = params[:interview_id]
+        @feedback.send_interview_activity_mail
         if @feedback.save
             flash[:success] = "Successfully added comment"
             redirect_to application_interview_path(id: params[:id], interview_id: params[:interview_id])

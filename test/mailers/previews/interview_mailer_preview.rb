@@ -7,4 +7,10 @@ class InterviewMailerPreview < ActionMailer::Preview
     InterviewMailer.interview_schedule(interview)
   end
 
+  # Preview this email at http://localhost:3000/rails/mailers/interview_mailer/interview_activity
+  def interview_activity
+    feedback = Feedback.find(18)
+    InterviewMailer.interview_activity(feedback)
+  end
+
 end
