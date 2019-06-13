@@ -11,6 +11,10 @@ class Interview < ApplicationRecord
   belongs_to :application
   belongs_to :interviewer, class_name: "Employee"
 
+  def send_interview_schedule_mail
+    InterviewMailer.interview_schedule(self).deliver_now
+  end
+  
   private
     DATE_FORMAT = "%d-%m-%Y"
     TIME_FORMAT = "%I:%M %p"

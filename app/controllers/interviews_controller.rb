@@ -14,6 +14,7 @@ class InterviewsController < ApplicationController
     begin
       @interview = Interview.new(interview_params)
       save_interview(@interview)
+      @interview.send_interview_schedule_mail
       update_application_status(@interview)
     rescue Exceptions::InvalidTimeSlotException
       redirect_to_new_application_interview_path(flash: { danger: "Invalid time slot"})

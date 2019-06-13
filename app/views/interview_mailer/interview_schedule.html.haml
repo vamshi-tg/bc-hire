@@ -5,6 +5,8 @@
   %h3
     Interview details:
     %h4
+      ="Round Name: #{@interview.round_name}"
+    %h4
       ="Interview Date: #{@interview.scheduled_on}"
     %h4
       ="Interview Time: #{formatted_time(@interview.start_time)} - #{formatted_time(@interview.end_time)}"
