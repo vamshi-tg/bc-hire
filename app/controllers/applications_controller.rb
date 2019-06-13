@@ -2,7 +2,7 @@ class ApplicationsController < ApplicationController
     before_action :logged_in_user
     
     def index
-        @applications = Application.paginate(page: params[:page], per_page: 10)
+        @applications = Application.eager_load(:candidate).paginate(page: params[:page], per_page: 10)
     end
 
     def show
