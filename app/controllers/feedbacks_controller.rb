@@ -8,11 +8,11 @@ class FeedbacksController < ApplicationController
         @feedback.interview_id = params[:interview_id]
         if @feedback.save
             flash[:success] = "Successfully added comment"
+            @feedback.send_interview_activity_mail
         else
             flash[:danger] = "Failed to post comment"
         end
         redirect_to application_interview_path(id: params[:id], interview_id: params[:interview_id])
-        @feedback.send_interview_activity_mail
     end
 
     private
