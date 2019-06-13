@@ -1,5 +1,6 @@
 class InterviewMailer < ApplicationMailer
   helper ApplicationHelper
+  include InterviewsHelper
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -22,30 +23,13 @@ class InterviewMailer < ApplicationMailer
   end
 
   private
-    def get_interviewers_assocaited_with_application(interview)
-      application = Application.includes({interviews: :interviewer}).find(interview.application_id)
-      associated_interviewers = application.interviews.map do |interview|
-        interview.interviewer.email
-      end
-
-      associated_interviewers.uniq
-      return associated_interviewers
-    end
-
     def remove_activity_owner(interviewers, feedback)
       interviewers.delete(feedback.interviewer.email)
       return interviewers
     end
 
     def get_recipients_for_interview_activity(interview, feedback)
-      interviewers = get_interviewers_assocaited_with_application(interview)
-      interviewers = append_managers(interviewers)
+      interviewers = get_employees_associated_with_application(interview.application_id)
       recipients = remove_activity_owner(interviewers, feedback)
-    end
-
-    def append_managers(interviewers)
-      managers = Employee.managers_email_ids
-      recipients = interviewers.push(*managers)
-      return recipients
     end
 end
