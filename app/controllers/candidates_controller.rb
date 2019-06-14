@@ -1,6 +1,4 @@
-class CandidatesController < ApplicationController
-    before_action :logged_in_user
-    
+class CandidatesController < ApplicationController 
     def new
         @candidate = Candidate.new
         @candidate.applications.build

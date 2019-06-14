@@ -1,7 +1,10 @@
 class SessionsController < ApplicationController
-    before_action :redirect_to_home, only: [:new]
     layout "login", only: [:new]
 
+    before_action :redirect_to_home, only: [:new]
+
+    skip_before_action :authenticate
+    
     def new
     end
 

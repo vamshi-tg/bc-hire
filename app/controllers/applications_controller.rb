@@ -1,6 +1,4 @@
 class ApplicationsController < ApplicationController
-    before_action :logged_in_user
-    
     def index
         search_query = params[:search]
         if search_query.present?
