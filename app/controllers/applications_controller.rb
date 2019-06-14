@@ -6,7 +6,7 @@ class ApplicationsController < ApplicationController
     end
 
     def show
-        applications = Application.eager_load(:candidate).where(id: params[:id])
+        applications = Application.where(id: params[:id])
         @application = applications.first
         @interviews = @application.interviews
     end
