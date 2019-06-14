@@ -3,5 +3,4 @@
     .d-flex.align-items-end
         = f.text_area :content, class: 'form-control'
         .mx-1
-            -# = f.submit "Post", class: "btn btn-primary", disabled: !user_associated_with_applicaiton?(current_user, application)
-            = f.submit "Post", class: "btn btn-primary"
+            = f.submit "Post", class: "btn btn-primary", disabled: !user_associated_with_applicaiton?(current_user, application)
