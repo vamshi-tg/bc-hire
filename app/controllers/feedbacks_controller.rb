@@ -4,7 +4,6 @@ class FeedbacksController < ApplicationController
         @feedback.interview_id = params[:interview_id]
         if @feedback.save
             flash[:success] = "Posted comment"
-            @feedback.send_interview_activity_mail
         else
             flash[:danger] = "Failed to post comment"
         end

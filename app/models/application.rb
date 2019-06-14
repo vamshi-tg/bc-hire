@@ -23,5 +23,18 @@ class Application < ApplicationRecord
       errors.add(:picture, "should be less than 5MB")
     end
   end
-  
+
+  def self.get_employees_associated_with_application(application)
+    interviewers = get_interviewers_associated_with_application(application.id)
+    owner = application.owner.email
+    employees = interviewers.push(owner).uniq
+  end
+
+  def self.get_interviewers_associated_with_application(application_id)
+    application = Application.includes({interviews: :interviewer}).find(application_id)
+    associated_interviewers = application.interviews.map do |interview|
+      interview.interviewer.email
+    end
+    return associated_interviewers
+  end  
 end
