@@ -5,7 +5,7 @@ class Interview < ApplicationRecord
   validates :scheduled_on, presence: true
   
   before_validation :parse_time
-  validate :time_slot
+  validate :validate_time_slot
 
   has_many :feedback
   belongs_to :application
@@ -43,7 +43,7 @@ class Interview < ApplicationRecord
       return "#{date} #{time} #{TIMEZONE}"
     end
 
-    def time_slot
+    def validate_time_slot
       if(start_time != nil && end_time != nil)
         raise Exceptions::InvalidTimeSlotException if end_time <= start_time
       end
