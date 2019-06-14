@@ -24,9 +24,6 @@ Rails.application.routes.draw do
   # Display interview for application
   get '/applications/:id/interview/:interview_id', to: "applications#show_application_interview", as: "application_interview"
 
-  # Search applications
-  get '/applications/search', to: "applications#search"
-
   post '/interview/:id/comment', to: "feedbacks#create", as: "interview_comments"
   resources :candidates
   resources :applications, only: [:index, :show, :update]

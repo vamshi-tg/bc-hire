@@ -2,7 +2,15 @@ class ApplicationsController < ApplicationController
     before_action :logged_in_user
     
     def index
-        @applications = Application.eager_load(:candidate).paginate(page: params[:page], per_page: 10)
+        search_query = params[:search]
+        if search_query.present?
+            conditions = 'candidates.name LIKE :query OR candidates.email LIKE :query'\
+                         ' OR applications.experience LIKE :query OR applications.role LIKE :query'\
+                         ' OR applications.status LIKE :query'
+            @applications = Application.eager_load(:candidate).where(conditions, query: "%#{search_query}%").paginate(page: params[:page], per_page: 10)
+        else
+            @applications = Application.eager_load(:candidate).paginate(page: params[:page], per_page: 10)            
+        end
     end
 
     def show
@@ -28,19 +36,8 @@ class ApplicationsController < ApplicationController
         end
     end
 
-    def search
-        search_query = params[:search]
-        if search_query.present?
-            conditions = 'candidates.name LIKE :query OR candidates.email LIKE :query OR applications.experience LIKE :query OR applications.role LIKE :query'
-            @applications = Application.eager_load(:candidate).where(conditions, query: "%#{search_query}%").paginate(page: params[:page], per_page: 10)
-            render 'index'
-        else
-            redirect_to applications_path
-        end
-    end
-
     private
         def application_params
-            params.require(:application).permit(:status)
+            params.require(:application).permit(:status, :search)
         end
 end
