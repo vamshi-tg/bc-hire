@@ -1,13 +1,9 @@
 class FeedbacksController < ApplicationController
-    def show
-
-    end
-
     def create
         @feedback = current_user.feedback.build(feedback_params)
         @feedback.interview_id = params[:interview_id]
         if @feedback.save
-            flash[:success] = "Successfully added comment"
+            flash[:success] = "Posted comment"
             @feedback.send_interview_activity_mail
         else
             flash[:danger] = "Failed to post comment"
