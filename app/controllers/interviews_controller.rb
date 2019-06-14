@@ -43,7 +43,7 @@ class InterviewsController < ApplicationController
     def save_interview(interview)
       if interview.save
         flash[:success] = "Scheduled Interview"
-        @interview.send_interview_schedule_mail
+        # @interview.send_interview_schedule_mail
         redirect_to application_path(application_id_param)
       else
         redirect_to_new_application_interview_path(flash: { danger: interview.errors.full_messages.join(', ') })
