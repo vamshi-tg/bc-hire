@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190613145112) do
+ActiveRecord::Schema.define(version: 20190614151818) do
 
   create_table "applications", force: :cascade do |t|
     t.integer "experience"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20190613145112) do
     t.datetime "updated_at", null: false
     t.string "resume"
     t.string "status", default: "open"
+    t.integer "owner_id"
     t.index ["candidate_id", "role"], name: "index_applications_on_candidate_id_and_role", unique: true
     t.index ["candidate_id"], name: "index_applications_on_candidate_id"
   end

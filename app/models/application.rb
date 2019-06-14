@@ -1,6 +1,7 @@
 class Application < ApplicationRecord
   has_many :interviews
   belongs_to :candidate
+  belongs_to :owner, class_name: "Employee"
 
   validates :role, presence: true
   validates :experience, presence: true
