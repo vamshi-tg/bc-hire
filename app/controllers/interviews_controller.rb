@@ -3,14 +3,13 @@ class InterviewsController < ApplicationController
 
   before_action :logged_in_user
   
-  def application_new_interview
+  def new
     @application_id = params[:id]
     @interviewers = get_interviewer_name_and_id_map
     @interview = Interview.new
-    render 'new'
   end
 
-  def create_interview_for_application
+  def create
     begin
       @interview = Interview.new(interview_params)
       save_interview(@interview)
@@ -23,14 +22,13 @@ class InterviewsController < ApplicationController
     end
   end
 
-  def application_edit_interview
+  def edit
     @application_id = params[:id]
     @interviewers = get_interviewer_name_and_id_map
     @interview = Interview.find(params[:interview_id])
-    render 'edit'
   end
 
-  def update_interview_for_application
+  def update
     begin
       @interview = Interview.find(params[:interview_id])
       update_interview(@interview)

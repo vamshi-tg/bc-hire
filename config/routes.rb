@@ -14,12 +14,12 @@ Rails.application.routes.draw do
   post '/candidate/application', to: "candidates#create_application_for_candidate"
 
   # For creating interview for an application
-  get '/applications/:id/interview/new', to: "interviews#application_new_interview", as: "application_new_interview"
-  post '/applications/:application_id/interviews', to: "interviews#create_interview_for_application", as: "application_interview_create"
+  get '/applications/:id/interview/new', to: "interviews#new", as: "application_new_interview"
+  post '/applications/:application_id/interviews', to: "interviews#create", as: "application_interview_create"
 
   # For editing interview for an application
-  get '/applications/:id/interview/:interview_id/edit', to: "interviews#application_edit_interview", as: "application_edit_interview"
-  patch '/applications/:id/interviews/:interview_id', to: "interviews#update_interview_for_application", as: "application_interview_update"
+  get '/applications/:id/interview/:interview_id/edit', to: "interviews#edit", as: "application_edit_interview"
+  patch '/applications/:id/interviews/:interview_id', to: "interviews#update", as: "application_interview_update"
   
   # Display interview for application
   get '/applications/:id/interview/:interview_id', to: "applications#show_application_interview", as: "application_interview"
