@@ -2,7 +2,7 @@
     .d-flex
         %H1 Applications
     .d-flex.flex-row-reverse
-        -if current_user_manager?
+        -if is_manager?(current_user)
             %div
                 = link_to "Create Application", new_candidate_application_path, class: "btn btn-primary"
         .mr-2

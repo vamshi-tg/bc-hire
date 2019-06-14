@@ -22,4 +22,8 @@ class Employee < ApplicationRecord
 	def self.managers_email_ids
 		Employee.select(:email).where(role: ROLE[:manager]).map{ |employee| employee.email}
 	end
+
+	def self.is_manager?(employee)
+		employee.role == ROLE[:manager]
+	end
 end

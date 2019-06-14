@@ -2,7 +2,7 @@
     .d-flex
         %H1 Candidates
     .d-flex.flex-row-reverse
-        -if current_user_manager?
+        -if is_manager?(current_user)
             %div
                 = link_to "Add Candidate", new_candidate_path, class: "btn btn-primary"
     %d-flex.mt-4
