@@ -1,4 +1,6 @@
 class Application < ApplicationRecord
+  include ActiveModel::Dirty
+
   has_many :interviews
   belongs_to :candidate
   belongs_to :owner, class_name: "Employee"
@@ -36,5 +38,18 @@ class Application < ApplicationRecord
       interview.interviewer.email
     end
     return associated_interviewers
-  end  
+  end
+
+  def self.remove_activity_triggerer(employees, triggerer_email)
+      employees.delete(triggerer_email)
+      return employees
+  end
+
+  def send_application_status_mail(triggerer)
+    application = self
+    previous_change = application.status_previous_change
+    if previous_change
+      CandidateApplicationMailer.application_status(application, previous_change, triggerer).deliver_now
+    end
+  end
 end

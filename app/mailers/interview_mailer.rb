@@ -1,6 +1,4 @@
-class InterviewMailer < ApplicationMailer
-  helper ApplicationHelper
-  
+class InterviewMailer < ApplicationMailer  
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -31,6 +29,6 @@ class InterviewMailer < ApplicationMailer
     def get_recipients_for_interview_activity(interview, feedback)
       application = Application.find(interview.application_id)
       employees = Application.get_employees_associated_with_application(application)
-      recipients = remove_activity_owner(employees, feedback)
+      recipients = Application.remove_activity_triggerer(employees, feedback.interviewer.email)
     end
 end

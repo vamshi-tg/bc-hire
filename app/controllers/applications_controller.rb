@@ -27,6 +27,7 @@ class ApplicationsController < ApplicationController
     def update
         @application = Application.find_by(id: params[:id])
         if @application.update_attributes(application_params)
+            @application.send_application_status_mail(current_user)
             flash[:success] = "Application Status Updated"
             redirect_to @application
         else
