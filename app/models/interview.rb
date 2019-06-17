@@ -1,4 +1,6 @@
 class Interview < ApplicationRecord
+  include ActiveModel::Dirty
+
   validates :round_name, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
@@ -21,6 +23,10 @@ class Interview < ApplicationRecord
 
   def send_interview_schedule_mail
     InterviewMailer.interview_schedule(self).deliver_now
+  end
+
+  def send_interview_schedule_update_mail(changes, triggerer)
+    InterviewMailer.interview_schedule_update(self, changes, triggerer).deliver_now
   end
 
   private

@@ -9,6 +9,13 @@ class InterviewMailer < ApplicationMailer
     mail to: @interview.interviewer.email, subject: "Interview Schedule"
   end
 
+  def interview_schedule_update(interview, previous_changes, triggerer)
+    @interview = interview
+    @previous_changes = previous_changes
+    @triggerer = triggerer
+    mail to: @interview.interviewer.email, subject: "Interview Schedule Updated"
+  end
+
   def interview_activity(feedback)
     @feedback = feedback
     interview = Interview.find(feedback.interview_id)

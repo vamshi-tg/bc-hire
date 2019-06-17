@@ -16,7 +16,7 @@ class InterviewsController < ApplicationController
       redirect_to_new_application_interview_path(flash: { danger: "Invalid time slot"})
 
     rescue Exceptions::InterviewTimeOverlapException
-      redirect_to_new_application_interview_path(flash: { danger: "Interviewer has interview around this time period. Cannot schedule interview for the interview" })
+      redirect_to_new_application_interview_path(flash: { danger: "Interviewer has interview around this time period. Cannot schedule interview for the interviewer" })
     end
   end
 
@@ -31,10 +31,10 @@ class InterviewsController < ApplicationController
       @interview = Interview.find(params[:interview_id])
       update_interview(@interview)
     rescue Exceptions::InvalidTimeSlotException
-      redirect_to_new_application_interview_path(flash: { danger: "Invalid time slot"})
+      redirect_to_edit_application_interview_path(flash: { danger: "Invalid time slot"})
 
-    rescue ActiveRecord::RecordNotUnique
-      redirect_to_new_application_interview_path(flash: { danger: "Interviewer not available" })
+    rescue Exceptions::InterviewTimeOverlapException
+      redirect_to_edit_application_interview_path(flash: { danger: "Interviewer has interview around this time period. Cannot schedule interview for the interviewer" })
     end
   end
 
@@ -43,7 +43,6 @@ class InterviewsController < ApplicationController
     def save_interview(interview)
       if interview.save
         flash[:success] = "Scheduled Interview"
-        # @interview.send_interview_schedule_mail
         redirect_to application_path(application_id_param)
       else
         redirect_to_new_application_interview_path(flash: { danger: interview.errors.full_messages.join(', ') })
@@ -53,6 +52,7 @@ class InterviewsController < ApplicationController
     def update_interview(interview)
       if interview.update_attributes(interview_params)
         flash[:success] = "Updated Interview Details"
+        send_relevant_interview_mail(interview)
         redirect_to application_path(application_id_param)
       else
         redirect_to_edit_application_interview_path(flash: { danger: interview.errors.full_messages.join(', ') })
@@ -91,6 +91,17 @@ class InterviewsController < ApplicationController
     def update_application_status(interview)
       if interview.application.status == "Open"
         interview.application.update_attribute(:status, "In Progress" )
+      end
+    end
+
+    def send_relevant_interview_mail(interview)
+      changes = interview.previous_changes
+      if changes
+        if changes.key?("interviewer_id")
+          interview.send_interview_schedule_mail
+        else
+          interview.send_interview_schedule_update_mail(changes, current_user)
+        end
       end
     end
 end
