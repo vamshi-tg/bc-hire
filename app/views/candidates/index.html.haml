@@ -11,13 +11,15 @@
                 %tr
                     %th Name
                     %th Email
-                    %th Action
                     %th Created At
+                    %th Action
             %tbody
                 - @candidates.each do |candidate|
                     %tr
                         %td= candidate.name
                         %td= candidate.email
-                        %td= link_to "Edit", edit_candidate_path(candidate)
                         %td= render 'shared/created_at_table_data', object: candidate
+                        %td
+                            = link_to edit_candidate_path(candidate) do
+                                = icon('fas', "pen", title: "Edit", class: "fa-lg")
         .mt-2= will_paginate @candidates,  list_classes: %w(pagination justify-content-center)
