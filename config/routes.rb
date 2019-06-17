@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get '/candidate/application/new', to:"candidates#new_application_for_candidate", as: "new_candidate_application"
   post '/candidate/application', to: "candidates#create_application_for_candidate"
 
+  # For editing application for a candidate
+  get '/candidate/:candidate_id/application/:id/edit', to:"applications#edit", as: "edit_candidate_application"
+  patch '/candidate/:candidate_id/application/:id', to: "applications#update", as: "candidate_application_update"
+
   # For creating interview for an application
   get '/applications/:id/interview/new', to: "interviews#new", as: "application_new_interview"
   post '/applications/:application_id/interviews', to: "interviews#create", as: "application_interview_create"

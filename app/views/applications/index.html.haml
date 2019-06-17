@@ -33,5 +33,10 @@
                         %td= application.role
                         %td= application.status
                         %td= render 'shared/created_at_table_data', object: application
-                        %td= link_to "View", application_path(application)
+                        %td
+                            .d-flex.justify-content-around
+                                = link_to application_path(application) do
+                                    = icon('far', "eye", title: "View", class: "fa-lg")
+                                = link_to edit_candidate_application_path(id: application.id, candidate_id: application.candidate_id) do
+                                    = icon('fas', "pen", title: "Edit", class: "fa-lg")
         .mt-2= will_paginate @applications,  list_classes: %w(pagination justify-content-center)   
