@@ -235,8 +235,8 @@ GEM
     fog-xml (0.1.3)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
-    font-awesome-rails (4.7.0.5)
-      railties (>= 3.2, < 6.1)
+    font-awesome-sass (5.8.1)
+      sassc (>= 1.11)
     formatador (0.2.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -392,6 +392,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (2.0.1)
+      ffi (~> 1.9)
+      rake
     shellany (0.0.1)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -445,7 +448,7 @@ DEPENDENCIES
   coffee-rails (= 4.2.2)
   faker (= 1.7.3)
   fog (= 1.42)
-  font-awesome-rails
+  font-awesome-sass (= 5.8.1)
   guard (= 2.13.0)
   guard-minitest (= 2.4.4)
   haml (= 5.0.4)
