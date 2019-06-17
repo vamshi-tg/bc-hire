@@ -6,7 +6,10 @@ class Interview < ApplicationRecord
   
   before_validation :parse_time
   validate :validate_time_slot
-
+  validates :interviewer, uniqueness: {scope: [:application, :start_time, :end_time], message: "already scheduled for this application at the same time"}
+  validates :interviewer, uniqueness: {scope: [:start_time, :end_time], message: "already has an interview in this time slot"}
+  validates :application, uniqueness: {scope: [:start_time, :end_time], message: "already has an interview in this time slot"}
+  
   has_many :feedback
   belongs_to :application
   belongs_to :interviewer, class_name: "Employee"
