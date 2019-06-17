@@ -63,6 +63,8 @@ class CandidatesController < ApplicationController
 
         def create_candidate_and_application(all_params)
             @candidate = Candidate.new(all_params)
+            # Assign current user to the application object which is nested inside the candidate
+            @candidate.applications.first.owner_id = current_user.id
             if @candidate.save
                 flash[:success] = "Candidate and application created"
                 redirect_to candidates_path
@@ -72,7 +74,9 @@ class CandidatesController < ApplicationController
         end
 
         def attach_application_to_existing_candidate(all_params)
-            if @candidate.applications.create(all_params[:applications_attributes]["0"])
+            application = @candidate.applications.build(all_params[:applications_attributes]["0"])
+            application.owner_id = current_user.id
+            if application.save
                 flash[:success] = "New application added to existing candidate with #{@candidate.email} email."
                 redirect_to candidates_path
             else
