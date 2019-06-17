@@ -2,9 +2,6 @@ class StaticPagesController < ApplicationController
   before_action :redirect_to_login, only: [:home]
 
   skip_before_action :authenticate
-  
-  def home
-  end
 
   private
     def redirect_to_login

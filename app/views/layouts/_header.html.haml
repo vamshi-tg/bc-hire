@@ -3,8 +3,7 @@
     %nav.bg-dark.navbar-dark.vertical-bar
       %ul.navbar-nav.m-2
         = link_to "BC HIRE", root_path, id: "logo", class: "navbar-brand"
-        %li.nav-item= link_to "Home", root_path, class: "nav-link #{current_path_active?(root_path)}"
-        %li.nav-item= link_to "Candidates", candidates_path, class: "nav-link #{current_path_active?(candidates_path)}"
         %li.nav-item= link_to "Applications", applications_path, class: "nav-link #{current_path_active?(applications_path)}"
+        %li.nav-item= link_to "Candidates", candidates_path, class: "nav-link #{current_path_active?(candidates_path)}"
         -if logged_in?
           %li.nav-item= link_to "Logout", logout_url, class: "nav-link"
