@@ -15,8 +15,8 @@ class InterviewsController < ApplicationController
     rescue Exceptions::InvalidTimeSlotException
       redirect_to_new_application_interview_path(flash: { danger: "Invalid time slot"})
 
-    rescue ActiveRecord::RecordNotUnique
-      redirect_to_new_application_interview_path(flash: { danger: "Interviewer not available" })
+    rescue Exceptions::InterviewTimeOverlapException
+      redirect_to_new_application_interview_path(flash: { danger: "Interviewer has interview around this time period. Cannot schedule interview for the interview" })
     end
   end
 
