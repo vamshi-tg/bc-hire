@@ -24,7 +24,7 @@ class ApplicationsController < ApplicationController
         @comments = @interview.feedback
     end
 
-    def update
+    def update_status
         @application = Application.find_by(id: params[:id])
         if @application.update_attributes(application_params)
             @application.send_application_status_mail(current_user)
