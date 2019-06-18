@@ -76,13 +76,22 @@ html, body {
 }
 
 header {
-    background-color: grey;
+    background-color: #156dc7;
     min-height: 50px;
+    .navbar-brand {
+        font-size: 1.8rem;
+        color: #fff;
+        font-weight: 700;
+    }
 }
 
 footer {
-    background-color: grey;
+    background-color: #156dc7;
     min-height: 50px;
+    .copyright {
+        color: #fff;
+        text-decoration: none;
+    }
 }
 
 .main-layout{
@@ -128,4 +137,8 @@ footer {
 .interview-card .comments{
     max-height: 400px;
     overflow: auto;
+}
+
+.nav-item > a{
+    font-size: 1.2rem;
 }
