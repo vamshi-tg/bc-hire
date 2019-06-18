@@ -10,7 +10,7 @@
 
             .my-3
                 = f.label :interviewer
-                = f.select :interviewer_id, options_for_select(@interviewers), include_blank: 'Select Interviewer', class: 'select-role'
+                = f.select :interviewer_id, options_for_select(@interviewers, selected: @interview.interviewer_id), include_blank: 'Select Interviewer', class: 'select-role'
 
             .d-flex.justify-content-between
                 -# - provide(:obj, "interview")
