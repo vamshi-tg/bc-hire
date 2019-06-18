@@ -20,7 +20,7 @@
             %p= "Applying For:  #{application.role}"
             %p= "Experience: #{application.experience} years"
             -if application.resume?
-                = link_to "Resume", application.resume.url
+                = link_to "Resume", application.resume.url, target: "_blank"
             -else
                 %p.text-danger= "No resume file attached"
             -# TODO:// Check another way to do this
