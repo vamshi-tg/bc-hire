@@ -103,7 +103,7 @@ footer {
 }
 
 .main-content .item-1{
-    min-width: 240px;
+    min-width: 230px;
 }
 
 .main-content .item-2{
@@ -141,4 +141,14 @@ footer {
 
 .nav-item > a{
     font-size: 1.2rem;
+}
+
+.interview-timeline{
+    a:last-child{
+        .button-style{
+            border: 1.5px solid #156DC7;
+            background-color: white;
+            color: black;
+        }
+    }
 }
