@@ -1,2 +1,10 @@
-%header.d-flex.align-items-center
+%header.d-flex.align-items-center.justify-content-between
     .ml-4= link_to "BC HIRE", root_path, id: "logo", class: "navbar-brand"
+    %div
+        %a#navbardrop.nav-link{"data-toggle" => "dropdown", :href => "#"}
+            .mr-5
+                = image_tag current_user.picture, alt: current_user.first_name, class: "avatar"
+        .dropdown-menu
+            .dropdown_item.ml-4.mx-2= get_name(current_user)
+            = link_to "Logout", logout_url, class: "dropdown-item"
+            
