@@ -43,7 +43,8 @@ class InterviewsController < ApplicationController
     def save_interview(interview)
       if interview.save
         flash[:success] = "Scheduled Interview"
-        redirect_to application_path(application_id_param)
+        #TODO Try to better this
+        redirect_to application_interview_path(id: application_id_param[:id], interview_id: interview.id, anchor: "interviews")
       else
         redirect_to_new_application_interview_path(flash: { danger: interview.errors.full_messages.join(', ') })
       end
@@ -53,7 +54,8 @@ class InterviewsController < ApplicationController
       if interview.update_attributes(interview_params)
         flash[:success] = "Updated Interview Details"
         send_relevant_interview_mail(interview)
-        redirect_to application_path(application_id_param)
+        #TODO Try to better this
+        redirect_to application_interview_path(id: application_id_param[:id], interview_id: interview.id, anchor: "interviews")
       else
         redirect_to_edit_application_interview_path(flash: { danger: interview.errors.full_messages.join(', ') })
       end
