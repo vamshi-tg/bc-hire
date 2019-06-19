@@ -2,12 +2,9 @@ class ApplicationsController < ApplicationController
     def index
         search_query = params[:search]
         if search_query.present?
-            conditions = 'candidates.name LIKE :query OR candidates.email LIKE :query'\
-                         ' OR applications.experience LIKE :query OR applications.role LIKE :query'\
-                         ' OR applications.status LIKE :query'
-            @applications = Application.eager_load(:candidate).where(conditions, query: "%#{search_query}%").paginate(page: params[:page], per_page: 10)
+            @applications = get_filtered_applications(search_query)
         else
-            @applications = Application.eager_load(:candidate).paginate(page: params[:page], per_page: 10)            
+            @applications = get_applications            
         end
     end
 
@@ -53,5 +50,24 @@ class ApplicationsController < ApplicationController
     private
         def application_params
             params.require(:application).permit(:status, :search, :role, :experience, :resume)
+        end
+
+        def get_applications
+            if is_manager?(current_user)
+                @applications = Application.eager_load(:candidate).paginate(page: params[:page], per_page: 10)            
+            else
+                @applications = current_user.involved_applications.eager_load(:candidate).paginate(page: params[:page], per_page: 10)            
+            end
+        end
+
+        def get_filtered_applications(search_query)
+            conditions = 'candidates.name LIKE :query OR candidates.email LIKE :query'\
+                         ' OR applications.experience LIKE :query OR applications.role LIKE :query'\
+                         ' OR applications.status LIKE :query'
+            if is_manager?(current_user)
+                @applications = Application.eager_load(:candidate).where(conditions, query: "%#{search_query}%").paginate(page: params[:page], per_page: 10)
+            else
+                @applications = current_user.involved_applications.eager_load(:candidate).where(conditions, query: "%#{search_query}%").paginate(page: params[:page], per_page: 10)
+            end
         end
 end
