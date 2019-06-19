@@ -29,6 +29,7 @@ class ApplicationsController < ApplicationController
             redirect_to @application
         else
             flash[:danger] = "Failed to update"
+            redirect_to @application
         end
     end
 
@@ -40,10 +41,10 @@ class ApplicationsController < ApplicationController
         @application = Application.find_by(id: params[:id])
         @application.candidate_id = params[:candidate_id]
         if @application.update_attributes(application_params)
-            flash[:success] = "Application Status Updated"
+            flash[:success] = "Application Updated"
             redirect_to @application
         else
-            flash[:danger] = "Failed to update"
+            redirect_to edit_candidate_application_path(id: @application.id, candidate_id: @application.candidate_id), flash: { danger: @application.errors.full_messages.join(', ') }
         end
     end
 
