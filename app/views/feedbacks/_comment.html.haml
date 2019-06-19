@@ -1,4 +1,8 @@
 %div.comments
+    -if comments.empty?
+        .d-flex.justify-content-center
+            .p-2.m-2.text-muted
+                No comments posted
     - comments.each do |comment|
         .d-flex.p-1
             %div.profile-pic.mr-2

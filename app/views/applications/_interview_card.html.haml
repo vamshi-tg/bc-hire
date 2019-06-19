@@ -16,6 +16,7 @@
         .card-footer
             %p
                 Comments
-            = render 'feedbacks/interview_comment_form', interview: interview, application: application
-            %hr
+            -if user_associated_with_applicaiton?(current_user, application)
+                = render 'feedbacks/interview_comment_form', interview: interview, application: application
+                %hr
             = render 'feedbacks/comment', comments: comments
