@@ -1,10 +1,11 @@
 .d-flex.flex-column
-    .d-flex.justify-content-end.mb-2
-        Update Application Status:
-        .d-flex
-            = render 'edit_application_status', application: application, button_value: "Accept"
-            = render 'edit_application_status', application: application, button_value: "On Hold"
-            = render 'edit_application_status', application: application, button_value: "Reject"
+    -if is_manager?(current_user)
+        .d-flex.justify-content-end.mb-2
+            Update Application Status:
+            .d-flex
+                = render 'edit_application_status', application: application, button_value: "Accept"
+                = render 'edit_application_status', application: application, button_value: "On Hold"
+                = render 'edit_application_status', application: application, button_value: "Reject"
 
     .card
         .card-header
