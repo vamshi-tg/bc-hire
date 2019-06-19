@@ -18,7 +18,7 @@
             %h6.card-title= "Candidate Name: #{application.candidate.name}"
             %p.pt-2= "Candidate E-mail:  #{application.candidate.email}"
             %p= "Applying For:  #{application.role}"
-            %p= "Experience: #{application.experience} years"
+            %p= "Experience: #{pluralize(application.experience, "year")}"
             -if application.resume?
                 = link_to "Resume", application.resume.url, target: "_blank"
             -else

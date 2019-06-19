@@ -22,6 +22,10 @@
 
             .mt-3
                 = f.label :resume
+                -if @application.resume.path
+                    .small-text
+                        Previously Uploaded File:
+                        =link_to File.basename(@application.resume.path), @application.resume.url
                 = f.file_field :resume, accept: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/msword',class: 'form-control-file'
 
             .d-flex.justify-content-center

@@ -29,7 +29,7 @@ class CandidatesController < ApplicationController
     def update
         @candidate = Candidate.find(params[:id])
         if @candidate.update_attributes(candidate_params)
-            redirect_to @candidate
+            redirect_to candidates_path
         else
             render 'edit'
         end
@@ -67,7 +67,7 @@ class CandidatesController < ApplicationController
             @candidate.applications.first.owner_id = current_user.id
             if @candidate.save
                 flash[:success] = "Candidate and application created"
-                redirect_to candidates_path
+                redirect_to applications_path
             else
                 render 'new_application_for_candidate'
             end
