@@ -8,11 +8,9 @@
   %body
     %div.d-flex.flex-column.main-layout
       %header
-        Header
       %div.main-content.justify-content-center.d-flex
         .d-flex.flex-column.justify-content-center
           - flash.each do |message_type, message|
             = content_tag(:div, message, class: "alert alert-#{message_type}")
           = yield
-      %footer
-        Footer
+      =render 'layouts/footer'

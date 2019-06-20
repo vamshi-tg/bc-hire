@@ -3,7 +3,8 @@
         .card-header
             .d-flex.justify-content-between
                 %div.align-self-center Interview Details
-                =link_to "Edit", application_edit_interview_path(id: application.id, interview_id: interview.id)
+                -if user_associated_with_applicaiton?(current_user, application)
+                    =link_to "Edit", application_edit_interview_path(id: application.id, interview_id: interview.id)
         .card-body
             %h6.card-title
                 = "Round Name: #{interview.round_name}"
@@ -15,6 +16,7 @@
         .card-footer
             %p
                 Comments
-            = render 'feedbacks/interview_comment_form', interview: interview, application: application
-            %hr
+            -if user_associated_with_applicaiton?(current_user, application)
+                = render 'feedbacks/interview_comment_form', interview: interview, application: application
+                %hr
             = render 'feedbacks/comment', comments: comments

@@ -1,0 +1,25 @@
+%h2 Interview Schedule
+
+%p
+  An Interview Schedule has been updated
+  %h3
+    Old Interview details:
+    %h4
+      ="Round Name: #{get_old_value(@previous_changes, @interview, :round_name)}"
+    %h4
+      ="Interview Date: #{get_old_value(@previous_changes, @interview, :scheduled_on)}"
+    %h4
+      ="Interview Time: #{formatted_time(get_old_value(@previous_changes, @interview, :start_time))} - #{formatted_time(get_old_value(@previous_changes, @interview, :end_time))}"
+
+    %hr
+      Updated Interview details:
+    %h4
+      ="Round Name: #{@interview.round_name}"
+    %h4
+      ="Interview Date: #{@interview.scheduled_on}"
+    %h4
+      ="Interview Time: #{formatted_time(@interview.start_time)} - #{formatted_time(@interview.end_time)}"
+    
+  = "Please click "
+  %span= link_to "here", application_interview_url(id: @interview.application_id, interview_id: @interview.id)
+  = "for more details about application." 

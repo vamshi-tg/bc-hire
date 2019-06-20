@@ -1,0 +1,6 @@
+.d-flex.nav-container
+  - unless login_url?
+    %nav.bg-dark.navbar-dark.vertical-bar
+      %ul.navbar-nav.m-2
+        %li.nav-item= link_to "Applications", applications_path, class: "nav-link #{current_path_active?(applications_path)}"
+        %li.nav-item= link_to "Candidates", candidates_path, class: "nav-link #{current_path_active?(candidates_path)}"

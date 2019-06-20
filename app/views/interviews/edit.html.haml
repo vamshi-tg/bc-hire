@@ -1,7 +1,7 @@
 .d-flex.new-interview-container.justify-content-center.my-5
     .d-flex.flex-column
         .d-flex
-            %H1 Create Interview
+            %H1 Edit Interview
         = form_for @interview, url: application_interview_update_path(id: @application_id, interviewer_id: @interview_id), local: true do |f| 
             = render 'shared/error_messages', object: @interview
             .my-3
@@ -10,7 +10,7 @@
 
             .my-3
                 = f.label :interviewer
-                = f.select :interviewer_id, options_for_select(@interviewers), include_blank: 'Select Interviewer', class: 'select-role'
+                = f.select :interviewer_id, options_for_select(@interviewers, selected: @interview.interviewer_id), include_blank: 'Select Interviewer', class: 'select-role'
 
             .d-flex.justify-content-between
                 -# - provide(:obj, "interview")

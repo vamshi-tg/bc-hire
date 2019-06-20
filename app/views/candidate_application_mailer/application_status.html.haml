@@ -1,0 +1,22 @@
+%h1 Application Status
+%h3
+  = "#{get_name(@triggerer)} has updated the application status from #{@previous_change[0]} to #{@previous_change[1]}"
+
+%p
+  %h3
+    Interview details:
+    %h4
+      ="Application Id: #{@application.id}"    
+    %h4
+      ="Candidate Name: #{@application.candidate.name}"
+    %h4
+      ="Candidate Email: #{@application.candidate.email}"      
+    %h4
+      ="Experience: #{@application.experience}"
+    %h4
+      ="Applying For: #{@application.role}"
+    
+
+
+
+

@@ -1,7 +1,10 @@
 class Employee < ApplicationRecord
     has_many :interviews, class_name: "Interview", foreign_key: "interviewer_id"
 	has_many :feedback, class_name: "Feedback", foreign_key: "interviewer_id"
+	has_many :applications, class_name: "Application", foreign_key: "owner_id"
 	
+	has_many :involved_applications, through: :interviews, source: :application
+
 	ROLE = {
 		manager: "manager",
 		interviewer: "interviewer"
@@ -21,5 +24,9 @@ class Employee < ApplicationRecord
 	
 	def self.managers_email_ids
 		Employee.select(:email).where(role: ROLE[:manager]).map{ |employee| employee.email}
+	end
+
+	def self.is_manager?(employee)
+		employee.role == ROLE[:manager]
 	end
 end

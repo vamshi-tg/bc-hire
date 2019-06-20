@@ -15,8 +15,9 @@ gem 'will_paginate', '3.1.6'
 gem 'will_paginate-bootstrap4'
 gem 'carrierwave',   '1.2.2'
 gem 'bootstrap4-datetime-picker-rails'
-gem "font-awesome-rails"
+gem 'font-awesome-sass', '5.8.1'
 gem 'omniauth-google-oauth2'
+gem 'fog', '1.42'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
@@ -40,7 +41,6 @@ end
 
 group :production do
   gem 'pg', '0.20.0'
-  gem 'fog', '1.42'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

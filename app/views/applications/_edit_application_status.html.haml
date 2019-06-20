@@ -1,5 +1,5 @@
 .ml-2
-    = form_for(application, url: application_path) do |f|
+    = form_for(application, url: application_status_path(id: application.id)) do |f|
         - if button_value === "Accept"
             = hidden_field_tag 'application[status]', Application::STATUS[:accepted]
             = f.submit button_value, class: "btn btn-success", data: { confirm: "Application will be accepted. Are you sure?" }, disabled: disabled?(button_value, application.status) 

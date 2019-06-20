@@ -15,6 +15,7 @@
  // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 @import "tempusdominus-bootstrap-4.css";
+@import "font-awesome-sprockets";
 @import "font-awesome";
 
 html, body {
@@ -65,6 +66,12 @@ html, body {
     border-radius: 50%;
 }
 
+.avatar{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
 .comment-timestamp{
     font-size: 12px;
 }
@@ -75,13 +82,22 @@ html, body {
 }
 
 header {
-    background-color: grey;
-    min-height: 50px;
+    background-color: #156dc7;
+    min-height: 56px;
+    .navbar-brand {
+        font-size: 1.6rem;
+        color: #fff;
+        font-weight: 700;
+    }
 }
 
 footer {
-    background-color: grey;
+    background-color: #156dc7;
     min-height: 50px;
+    .copyright {
+        color: #fff;
+        text-decoration: none;
+    }
 }
 
 .main-layout{
@@ -93,7 +109,7 @@ footer {
 }
 
 .main-content .item-1{
-    min-width: 240px;
+    min-width: 230px;
 }
 
 .main-content .item-2{
@@ -127,4 +143,28 @@ footer {
 .interview-card .comments{
     max-height: 400px;
     overflow: auto;
+}
+
+.nav-item > a{
+    font-size: 1.1rem;
+}
+
+.interview-timeline{
+    a:last-child{
+        .button-style{
+            border: 1.5px solid #156DC7;
+            background-color: white;
+            color: black;
+        }
+    }
+}
+
+.small-text{
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.applications-index-message{
+    margin: auto;
+    color: grey;
 }

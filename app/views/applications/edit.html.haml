@@ -1,0 +1,40 @@
+.d-flex.new-application-candidate-container.justify-content-center.my-5
+    .d-flex.flex-column.w-50
+        .d-flex
+            %H1 Edit Application
+        = form_for @application, url: candidate_application_update_path(id: @application.id, candidate_id: @application.candidate_id), local: true do |f| 
+            = render 'shared/error_messages', object: @application
+            .my-3
+                = label_tag :name
+                = text_field_tag :name, "#{@application.candidate.name}",class: 'form-control', disabled: true
+
+            .my-3            
+                = label_tag :email
+                = text_field_tag :email, "#{@application.candidate.email}",class: 'form-control', disabled: true
+
+            .mt-3
+                = f.label :experience
+                = f.number_field :experience, class: 'form-control'
+
+            .mt-3
+                = f.label :role
+                = f.select :role, options_for_select(roles), prompt: 'Select Role', class: 'select-role'
+
+            .mt-3
+                = f.label :resume
+                -if @application.resume.path
+                    .small-text
+                        Previously Uploaded File:
+                        =link_to File.basename(@application.resume.path), @application.resume.url
+                = f.file_field :resume, accept: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/msword',class: 'form-control-file'
+
+            .d-flex.justify-content-center
+                = f.submit "Submit", class: "btn btn-primary"
+
+:javascript
+    $('#candidate_applications_attributes_0_resume').bind('change', function() {
+        var size_in_megabytes = this.files[0].size/1024/1024;
+        if (size_in_megabytes > 5) {
+            alert('Maximum file size is 5MB. Please choose a smaller file.');
+         }
+    });

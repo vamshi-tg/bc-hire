@@ -15,22 +15,26 @@
         email: email)  
 end
 
-# Candidates Application
-candidates = Candidate.order(:created_at).take(30)
-roles = ["Full Stack Developer", "Web Developer", "Graphic Designer"]
-candidates.each do|candidate| 
-    role = roles[rand 0..2]
-    experience = rand 1..10
-    candidate.applications.create!(role: role, experience: experience)
-end
-
 # Employee
+roles = ["manager", "interviewer"]
 5.times do |n|
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = "#{first_name}.#{last_name}@example.com"
-    role = "Interviewer"
+    role = n % 2 == 0 ? roles[0] : roles[1] 
     provider = "google_oauth2"
     uid = Faker::Number.number(10)
     Employee.create!(first_name: first_name, last_name: last_name, email: email, role: role, provider: provider, uid: uid)
 end
+
+# Candidates Application
+candidates = Candidate.order(:created_at).take(30)
+manager = Employee.find_by(role: "manager")
+roles = ["Full Stack Developer", "Web Developer", "Graphic Designer"]
+candidates.each do|candidate| 
+    role = roles[rand 0..2]
+    experience = rand 1..10
+    owner_id = manager.id
+    candidate.applications.create!(role: role, experience: experience, owner_id: owner_id)
+end
+

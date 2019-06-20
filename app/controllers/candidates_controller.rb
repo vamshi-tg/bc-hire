@@ -1,6 +1,4 @@
-class CandidatesController < ApplicationController
-    before_action :logged_in_user
-    
+class CandidatesController < ApplicationController 
     def new
         @candidate = Candidate.new
         @candidate.applications.build
@@ -31,7 +29,7 @@ class CandidatesController < ApplicationController
     def update
         @candidate = Candidate.find(params[:id])
         if @candidate.update_attributes(candidate_params)
-            redirect_to @candidate
+            redirect_to candidates_path
         else
             render 'edit'
         end
@@ -65,16 +63,20 @@ class CandidatesController < ApplicationController
 
         def create_candidate_and_application(all_params)
             @candidate = Candidate.new(all_params)
+            # Assign current user to the application object which is nested inside the candidate
+            @candidate.applications.first.owner_id = current_user.id
             if @candidate.save
                 flash[:success] = "Candidate and application created"
-                redirect_to candidates_path
+                redirect_to applications_path
             else
                 render 'new_application_for_candidate'
             end
         end
 
         def attach_application_to_existing_candidate(all_params)
-            if @candidate.applications.create(all_params[:applications_attributes]["0"])
+            application = @candidate.applications.build(all_params[:applications_attributes]["0"])
+            application.owner_id = current_user.id
+            if application.save
                 flash[:success] = "New application added to existing candidate with #{@candidate.email} email."
                 redirect_to candidates_path
             else

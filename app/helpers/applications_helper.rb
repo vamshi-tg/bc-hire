@@ -8,4 +8,8 @@ module ApplicationsHelper
             return false
         end
     end
+
+    def user_associated_with_applicaiton?(user, application)
+        associated = Application.get_employees_associated_with_application(application).include? user.email
+    end
 end

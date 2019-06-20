@@ -7,16 +7,15 @@
 
   %body
     %div.d-flex.flex-column.main-layout
-      %header
-        
+      =render 'layouts/header'
       %div.main-content.d-flex
         %div.item-1
-          = render 'layouts/header'
+          = render 'layouts/vertical_navbar'
         %div.item-2
           %div.errors.my-2.mx-5
             - flash.each do |message_type, message|
               = content_tag(:div, message, class: "alert alert-#{message_type}")
           .d-flex
             = yield
-      %footer
+      =render 'layouts/footer'
         
