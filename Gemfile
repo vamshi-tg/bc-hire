@@ -30,6 +30,10 @@ group :development, :test do
   gem 'rspec-rails', '3.8'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
+
+  # https://girders.org/2014/02/setup-rails-41-spring-rspec-and-guard.html For setting up rspec with guard
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
 end
 
 group :development do
