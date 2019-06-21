@@ -1,6 +1,6 @@
 FactoryBot.define do
     factory :candidate do
-      name { "Kumar" }
-      email { "kumar@gmail.com" }
+      name { Faker::Name.name }
+      email { Faker::Internet.email }
     end
 end
