@@ -9,8 +9,7 @@ class ApplicationsController < ApplicationController
     end
 
     def show
-        applications = Application.where(id: params[:id])
-        @application = applications.first
+        @application = Application.includes(interviews: :feedback).find(params[:id])
         @interviews = @application.interviews
     end
 

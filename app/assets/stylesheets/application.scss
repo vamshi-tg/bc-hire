@@ -168,3 +168,9 @@ footer {
     margin: auto;
     color: grey;
 }
+
+.interview-details-collapsing {
+    -webkit-transition: all 0s ease-out;
+    -o-transition: all 0s ease-out;
+    transition: all 0s ease-out;
+}

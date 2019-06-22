@@ -3,3 +3,12 @@
         = render "application_card", application: @application
     %div.my-5
         = render "interviews_bar", application: @application, interviews: @interviews
+    %div.my-1
+        %div{id: "interview-details-parent"}
+            - @interviews.each_with_index do |interview, index|
+                - interview_count = index + 1
+                .collapse{id: "interview-#{interview_count}-details", 'data-parent': "#interview-details-parent", class: "interview-details-collapsing"}
+                    = render "interview_card", application: @application, interview: interview, comments: interview.feedback, interview_index: interview_count
+
+:javascript
+    $("#interview-details-parent .interview-details-collapsing:last-child").addClass("show");
