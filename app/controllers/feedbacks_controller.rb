@@ -7,7 +7,7 @@ class FeedbacksController < ApplicationController
         else
             flash[:danger] = "Failed to post comment"
         end
-        redirect_to application_interview_path(id: params[:id], interview_id: params[:interview_id])
+        redirect_to application_path(id: params[:id], interview: params[:interview_id])
     end
 
     private

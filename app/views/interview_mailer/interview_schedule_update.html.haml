@@ -21,5 +21,5 @@
       ="Interview Time: #{formatted_time(@interview.start_time)} - #{formatted_time(@interview.end_time)}"
     
   = "Please click "
-  %span= link_to "here", application_interview_url(id: @interview.application_id, interview_id: @interview.id)
+  %span= link_to "here", application_url(id: @interview.application_id, interview: @interview.id)
   = "for more details about application." 

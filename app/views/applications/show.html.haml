@@ -7,8 +7,15 @@
         %div{id: "interview-details-parent"}
             - @interviews.each_with_index do |interview, index|
                 - interview_count = index + 1
-                .collapse{id: "interview-#{interview_count}-details", 'data-parent': "#interview-details-parent", class: "interview-details-collapsing"}
+                .collapse{id: "interview-#{interview.id}-details", 'data-parent': "#interview-details-parent", class: "interview-details-collapsing"}
                     = render "interview_card", application: @application, interview: interview, comments: interview.feedback, interview_index: interview_count
 
 :javascript
-    $("#interview-details-parent .interview-details-collapsing:last-child").addClass("show");
+    $(function () {
+        var interview_id = "#{@interview_id}"
+        if(interview_id) {
+            $("#interview-details-parent #interview-" + interview_id + "-details").addClass("show");
+        } else {
+            $("#interview-details-parent .interview-details-collapsing:last-child").addClass("show");
+        }
+    });

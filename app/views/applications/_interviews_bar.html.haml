@@ -4,5 +4,5 @@
             Interviews
         .d-flex.bg-light.p-2.mt-2.justify-content-center.border.rounded.interview-timeline
             - interviews.each_with_index do |interview, index|
-                = link_to "#interview-#{index + 1}-details", 'data-toggle': "collapse" do
+                = link_to "#interview-#{interview.id}-details", 'data-toggle': "collapse" do
                     %button.btn-lg.btn-dark.mx-4.rounded-circle.button-style= index+1

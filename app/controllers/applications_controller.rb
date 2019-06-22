@@ -11,13 +11,7 @@ class ApplicationsController < ApplicationController
     def show
         @application = Application.includes(interviews: :feedback).find(params[:id])
         @interviews = @application.interviews
-    end
-
-    def show_application_interview
-        @application = Application.find(params[:id])
-        @interviews = @application.interviews.order(:created_at)
-        @interview = @interviews.find_by(id: params[:interview_id])
-        @comments = @interview.feedback
+        @interview_id = params[:interview]
     end
 
     def update_status
@@ -46,6 +40,16 @@ class ApplicationsController < ApplicationController
             redirect_to edit_candidate_application_path(id: @application.id, candidate_id: @application.candidate_id), flash: { danger: @application.errors.full_messages.join(', ') }
         end
     end
+
+=begin
+    # Deprecate
+    def show_application_interview
+        @application = Application.find(params[:id])
+        @interviews = @application.interviews.order(:created_at)
+        @interview = @interviews.find_by(id: params[:interview_id])
+        @comments = @interview.feedback
+    end
+=end
 
     private
         def application_params

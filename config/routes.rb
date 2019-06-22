@@ -25,14 +25,18 @@ Rails.application.routes.draw do
   get '/applications/:id/interview/:interview_id/edit', to: "interviews#edit", as: "application_edit_interview"
   patch '/applications/:id/interviews/:interview_id', to: "interviews#update", as: "application_interview_update"
   
-  # Display interview for application
-  get '/applications/:id/interview/:interview_id', to: "applications#show_application_interview", as: "application_interview"
-
   post '/interview/:id/comment', to: "feedbacks#create", as: "interview_comments"
 
   patch '/application/:id/status', to: "applications#update_status", as: "application_status"
   
   resources :candidates
   resources :applications, only: [:index, :show]
+
+
+  # Deprecated
+
+  # Display interview for application
+  # get '/applications/:id/interview/:interview_id', to: "applications#show_application_interview", as: "application_interview"
+
 
 end
