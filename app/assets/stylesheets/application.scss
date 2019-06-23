@@ -149,7 +149,7 @@ footer {
     font-size: 1.1rem;
 }
 
-.interview-timeline{
+.timeline-container{
     a:last-child{
         .button-style{
             border: 1.5px solid #156DC7;
@@ -173,4 +173,39 @@ footer {
     -webkit-transition: all 0s ease-out;
     -o-transition: all 0s ease-out;
     transition: all 0s ease-out;
+}
+
+.timeline-container{
+    padding: 10px;
+    height: 50px;
+    box-sizing: content-box;
+
+    a{
+        color: black;
+        text-decoration: none;
+    }
+
+    .interview-circle{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background: #f3efef;
+        border: 2px solid #156dc7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .timeline-line{
+        border-top: 3px solid #156dc7;
+        width: 42px;
+        height: 1px;
+        align-self: center;
+    }
+
+    .interview-circle:last-child{
+        border: 2px solid #28a745;
+        background: white;
+    }
 }

@@ -2,7 +2,8 @@
     .d-flex.flex-column
         %H3{id: "interviews"}
             Interviews
-        .d-flex.bg-light.p-2.mt-2.justify-content-center.border.rounded.interview-timeline
-            - interviews.each_with_index do |interview, index|
-                = link_to "#interview-#{interview.id}-details", 'data-toggle': "collapse" do
-                    %button.btn-lg.btn-dark.mx-4.rounded-circle.button-style= index+1
+    .timeline-container.d-flex.justify-content-center.border.rounded.bg-light
+        - interviews.each_with_index do |interview, index|
+            %div.timeline-line
+            = link_to "#interview-#{interview.id}-details", 'data-toggle': "collapse", class:"interview-circle", role: "button" do
+                = index+1
