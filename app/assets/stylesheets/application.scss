@@ -18,9 +18,25 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+@font-face {
+    font-family: 'Montserrat-Medium';
+    src: url('Montserrat/Montserrat-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('Montserrat/Montserrat-Bold.ttf') format('truetype');
+}
+
 html, body {
     height: 100%;
 }
+
+H1, H2, H3, H4, H5, H6 {
+    font-family: 'Montserrat-Medium';
+    letter-spacing: -1.5px;
+}
+
 .google-sign-in{
     text-align: center;
 }
