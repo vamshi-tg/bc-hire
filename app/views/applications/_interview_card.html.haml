@@ -9,9 +9,9 @@
                 -if user_associated_with_applicaiton?(current_user, application)
                     =link_to "Edit", application_edit_interview_path(id: application.id, interview_id: interview.id)
         .card-body
-            %h6.card-title
+            %p.card-title
                 = "Round Name: #{interview.round_name}"
-            %p.pt-2
+            %p
                 = "Interview Date:  #{interview.scheduled_on}"
             .d-flex
                 %p="Interview Time Slot: #{formatted_time(interview.start_time)} - #{formatted_time(interview.end_time)}"

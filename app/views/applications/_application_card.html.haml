@@ -16,8 +16,8 @@
                     .d-flex.justify-content-center
                         %span.badge.badge-pill.badge-secondary.status-pill= application.status.capitalize
         .card-body
-            %h6.card-title= "Candidate Name: #{application.candidate.name}"
-            %p.pt-2= "Candidate E-mail:  #{application.candidate.email}"
+            %p.card-title= "Candidate Name: #{application.candidate.name}"
+            %p= "Candidate E-mail:  #{application.candidate.email}"
             %p= "Applying For:  #{application.role}"
             %p= "Experience: #{pluralize(application.experience, "year")}"
             -if application.resume?
