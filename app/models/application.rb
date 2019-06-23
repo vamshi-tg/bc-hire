@@ -6,7 +6,7 @@ class Application < ApplicationRecord
   belongs_to :owner, class_name: "Employee"
 
   validates :role, presence: true
-  validates :experience, presence: true
+  validates :experience, presence: true, numericality: { less_than_or_equal_to: 50,  only_integer: true }
   validate  :resume_size
 
   mount_uploader :resume, ResumeUploader
