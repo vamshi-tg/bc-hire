@@ -91,7 +91,7 @@ class InterviewsController < ApplicationController
     end
 
     def update_application_status(interview)
-      if interview.application.status == "Open"
+      if interview.application.status == Application::STATUS[:open]
         interview.application.update_attribute(:status, "In Progress" )
       end
     end
