@@ -68,11 +68,9 @@ class Interview < ApplicationRecord
      conditions = 'scheduled_on = :scheduled_on'\
                   ' AND start_time <= :end_time AND :start_time <= end_time'
 
-      if self.interviewer
-        interviewer_interviews = self.interviewer.interviews.where(conditions, scheduled_on: "#{self.scheduled_on}", start_time: "#{self.start_time}", end_time: "#{self.end_time}")
-        if interviewer_interviews.any?
-          raise Exceptions::InterviewTimeOverlapException
-        end
+      interviewer_interviews = self.interviewer.interviews.where(conditions, scheduled_on: "#{self.scheduled_on}", start_time: "#{self.start_time}", end_time: "#{self.end_time}")
+      if interviewer_interviews.any?
+        raise Exceptions::InterviewTimeOverlapException
       end
     end
 end
