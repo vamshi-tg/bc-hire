@@ -18,7 +18,7 @@
 
             .mt-3
                 = f.label :role
-                = f.select :role, options_for_select(roles), prompt: 'Select Role', class: 'select-role'
+                = f.select :role, options_for_select(roles, selected: @application.role), prompt: 'Select Role', class: 'select-role'
 
             .mt-3
                 = f.label :resume
