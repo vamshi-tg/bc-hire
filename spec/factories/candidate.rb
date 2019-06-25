@@ -3,8 +3,18 @@ FactoryBot.define do
       name { Faker::Name.name }
       email { Faker::Internet.email }
     end
-    
-    after :build do |candidate|
-      create :application, candidate: candidate
+
+    factory :candidate_with_applications, parent: :candidate do
+      transient do
+        applications_count { 1 }
+      end
+
+      after(:create) do |candidate, evaluator|
+        create_list(:application, evaluator.applications_count, candidate: candidate)
+      end
+
+      after(:stub) do |candidate, evaluator|
+        build_stubbed_list(:application, evaluator.applications_count, candidate: candidate)
+      end  
     end
 end
