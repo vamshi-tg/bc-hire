@@ -45,6 +45,32 @@ class Application < ApplicationRecord
       return employees
   end
 
+  def self.create_application(params, current_user)
+    candidate = Candidate.find_by(email: params[:email])
+    if candidate.nil?
+      is_created = self.create_candidate_and_application(params, current_user)
+      message = "Candidate and application created"
+    else
+      is_created = self.add_application_to_existing_candidate(params, candidate, current_user)
+      message = "New application added to existing candidate with #{candidate.email} email."
+    end
+    return {is_created: is_created, message: message}
+  end
+
+  def self.create_candidate_and_application(candidate_application_params, current_user)
+    candidate = Candidate.new(candidate_application_params)
+    # Assign owner to the newly built application
+    candidate.applications.first.assign_owner_id(current_user.id)
+    candidate.save
+  end
+
+  def self.add_application_to_existing_candidate(candidate_application_params, candidate, current_user)
+    application_params = candidate_application_params[:applications_attributes]["0"]
+    application = candidate.applications.build(application_params)
+    application.assign_owner_id(current_user.id)
+    application.save
+end
+
   def send_application_status_mail(triggerer)
     application = self
     previous_change = application.status_previous_change
