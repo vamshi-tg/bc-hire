@@ -1,12 +1,8 @@
 class Interview < ApplicationRecord
   include ActiveModel::Dirty
 
-  validates :round_name, presence: true
-  validates :start_time, presence: true
-  validates :end_time, presence: true
-  validates :scheduled_on, presence: true
+  validates :round_name, :start_time, :end_time, :scheduled_on, presence: true
 
-  
   before_validation :prepend_scheduled_date_to_time
 
   validate :validate_time_slot
