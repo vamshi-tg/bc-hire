@@ -52,4 +52,8 @@ class Application < ApplicationRecord
       CandidateApplicationMailer.application_status(application, previous_change, triggerer).deliver_now
     end
   end
+
+  def assign_owner_id(owner_id)
+    self.owner_id = owner_id
+  end
 end

@@ -41,12 +41,11 @@ class CandidatesController < ApplicationController
     end
 
     def create_application_for_candidate
-        all_params = candidate_application_params
-        @candidate = Candidate.find_by(email: all_params[:email])
+        @candidate = Candidate.find_by(email: params[:candidate][:email])
         if @candidate.nil?
-            create_candidate_and_application(all_params)
+            create_candidate_and_application
         else
-            attach_application_to_existing_candidate(all_params)
+            attach_application_to_existing_candidate
         end
     end
 
@@ -61,10 +60,10 @@ class CandidatesController < ApplicationController
             )
         end
 
-        def create_candidate_and_application(all_params)
-            @candidate = Candidate.new(all_params)
-            # Assign current user to the application object which is nested inside the candidate
-            @candidate.applications.first.owner_id = current_user.id
+        def create_candidate_and_application
+            @candidate = Candidate.new(candidate_application_params)
+            # Assign current user as the owner of the application
+            @candidate.applications.first.assign_owner_id(current_user.id)
             if @candidate.save
                 flash[:success] = "Candidate and application created"
                 redirect_to applications_path
@@ -73,12 +72,13 @@ class CandidatesController < ApplicationController
             end
         end
 
-        def attach_application_to_existing_candidate(all_params)
-            application = @candidate.applications.build(all_params[:applications_attributes]["0"])
-            application.owner_id = current_user.id
+        def attach_application_to_existing_candidate
+            application_params = candidate_application_params[:applications_attributes]["0"]
+            application = @candidate.applications.build(application_params)
+            application.assign_owner_id(current_user.id)
             if application.save
                 flash[:success] = "New application added to existing candidate with #{@candidate.email} email."
-                redirect_to candidates_path
+                redirect_to applications_path
             else
                 render 'new_application_for_candidate'
             end
