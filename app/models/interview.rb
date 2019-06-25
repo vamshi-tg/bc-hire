@@ -7,7 +7,7 @@ class Interview < ApplicationRecord
   validates :scheduled_on, presence: true
 
   
-  before_validation :parse_time
+  before_validation :prepend_scheduled_date_to_time
 
   validate :validate_time_slot
   validates :interviewer, uniqueness: {scope: [:application, :start_time, :end_time], message: "already scheduled for this application at the same time"}
@@ -36,19 +36,21 @@ class Interview < ApplicationRecord
     TIMEZONE = "Kolkata"
     DATETIME_ZONE_FORMAT = "#{DATE_FORMAT} #{TIME_FORMAT} %Z"
 
-    def parse_time
+    def prepend_scheduled_date_to_time
       # By default time is storing the wrong year. So, building the time with interview date.
       # Also, storing the date and time in IST timezone. While saving it will automatically before do
       # stored in UTC format.
       # Time.strptime("19-06-2019 7:14 PM Kolkata", "%d-%m-%Y %I:%M %p %Z")
-      unless self.start_time.nil?
-        datetime_zone_value = get_date_and_time(self.scheduled_on, self.start_time)
-        self.start_time = Time.strptime(datetime_zone_value, DATETIME_ZONE_FORMAT)
+      unless self.scheduled_on.nil?
+        self.start_time = prepend_date(self.start_time)
+        self.end_time = prepend_date(self.end_time)
       end
+    end
 
-      unless self.start_time.nil?
-        datetime_zone_value = get_date_and_time(self.scheduled_on, self.end_time)
-        self.end_time = Time.strptime(datetime_zone_value, DATETIME_ZONE_FORMAT)
+    def prepend_date(time)
+      unless time.nil?
+        datetime_zone_value = get_date_and_time(self.scheduled_on, time)
+        time = Time.strptime(datetime_zone_value, DATETIME_ZONE_FORMAT)
       end
     end
 
