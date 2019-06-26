@@ -1,7 +1,7 @@
 FactoryBot.define do
     factory :candidate do
       name { Faker::Name.name }
-      email { Faker::Internet.email }
+      email { Faker::Internet.safe_email(name.split.join('.')) }
     end
 
     factory :candidate_with_applications, parent: :candidate do
