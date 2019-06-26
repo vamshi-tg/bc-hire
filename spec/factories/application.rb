@@ -5,11 +5,14 @@ FactoryBot.define do
       
       transient do
         status { "open" }
-        resume { nil }
       end
 
       role        { Faker::Job.title }
       experience  { rand 1..20 }
+      resume do
+         valid_file_extensions = ['pdf', 'doc', 'docx']
+         file_name = Faker::File.file_name(nil, nil, valid_file_extensions.sample).split('/')[1]
+      end
     end
 
     factory :applications_with_interviews, parent: :application do
