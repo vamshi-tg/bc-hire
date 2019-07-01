@@ -37,22 +37,22 @@ class Interview < ApplicationRecord
       # Also, storing the date and time in IST timezone. While saving it will automatically before do
       # stored in UTC format.
       # Time.strptime("19-06-2019 7:14 PM Kolkata", "%d-%m-%Y %I:%M %p %Z")
-      unless self.scheduled_on.nil?
+      if self.scheduled_on.present?
         self.start_time = prepend_date(self.start_time)
         self.end_time = prepend_date(self.end_time)
       end
     end
 
     def prepend_date(time)
-      unless time.nil?
+      if time.present?
         datetime_zone_value = get_date_and_time(self.scheduled_on, time)
         time = Time.strptime(datetime_zone_value, DATETIME_ZONE_FORMAT)
       end
     end
 
-    def get_date_and_time(scheduled_on, start_time)
+    def get_date_and_time(scheduled_on, time)
       date = scheduled_on.strftime(DATE_FORMAT)
-      time = start_time.strftime(TIME_FORMAT)
+      time = time.strftime(TIME_FORMAT)
       return "#{date} #{time} #{TIMEZONE}"
     end
 
