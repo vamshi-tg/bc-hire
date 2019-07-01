@@ -88,5 +88,15 @@ RSpec.describe CandidatesController, type: :controller do
             end.to change { Application.count }.by(1)
             .and change { Candidate.count }.by(1)
         end
+
+        it "does not change name when new application is submitted" do
+            candidate_application_params[:candidate][:email] = test_candidate.email
+            test_candidate_old_name = test_candidate.name
+            candidate_application_params[:candidate][:name] = "New name"
+            expect do
+                post :create_application_for_candidate, params: candidate_application_params
+            end.to change { test_candidate.reload.applications.size }.by(1)
+            expect(test_candidate.name).to eq(test_candidate_old_name) 
+        end
     end
 end
