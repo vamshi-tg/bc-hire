@@ -1,7 +1,7 @@
 FactoryBot.define do
     factory :employee, aliases: [:owner, :interviewer] do
         transient do
-            role { "Interviewer" }
+            manager { false }
         end
 
         omniauth_google = Faker::Omniauth.google        
@@ -11,5 +11,12 @@ FactoryBot.define do
         last_name   { omniauth_google[:info][:last_name] }
         picture     { omniauth_google[:info][:image] }
         provider    { omniauth_google[:provider] }
+
+        after(:create) do |employee, evaluator|
+            if evaluator.manager
+                employee.role = "manager"
+                employee.save!
+            end
+        end
     end
   end
