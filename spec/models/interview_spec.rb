@@ -69,4 +69,30 @@ RSpec.describe Interview, type: :model do
             end
         end
     end
+
+    describe "#send_interview_schedule_mail" do
+        it "sends mail" do
+            allow(InterviewMailer).to receive_message_chain(:interview_schedule, :deliver_now)
+
+            interview = FactoryBot.build_stubbed(:interview)
+            expect(InterviewMailer).to receive(:interview_schedule).with(interview).once
+            expect(InterviewMailer).to receive_message_chain(:interview_schedule, :deliver_now)
+
+            interview.send_interview_schedule_mail
+        end
+    end
+
+    describe "#send_interview_schedule_update_mail" do
+        it "sends mail" do
+            allow(InterviewMailer).to receive_message_chain(:interview_schedule_update, :deliver_now)
+
+            interview = FactoryBot.build_stubbed(:interview)
+            triggerer = FactoryBot.build_stubbed(:employee)
+            
+            expect(InterviewMailer).to receive(:interview_schedule_update).with(interview, kind_of(Hash), triggerer).once
+            expect(InterviewMailer).to receive_message_chain(:interview_schedule_update, :deliver_now)
+
+            interview.send_interview_schedule_update_mail({email: ["old", "new"]}, triggerer)
+        end
+    end
 end
