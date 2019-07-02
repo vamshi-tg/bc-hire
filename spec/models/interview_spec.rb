@@ -95,4 +95,100 @@ RSpec.describe Interview, type: :model do
             interview.send_interview_schedule_update_mail({email: ["old", "new"]}, triggerer)
         end
     end
+
+    describe "uniquness validations for" do
+        let(:interview_schedule) { { scheduled_on: "02-04-2019", start_time: "10:45 AM", end_time: "11:46 AM" } }
+        let!(:candidate) { FactoryBot.create(:candidate) }
+        let!(:application) { FactoryBot.create(:application, candidate: candidate)}
+        let!(:interviewer) { FactoryBot.create(:interviewer) }
+        let!(:interview) { interview = FactoryBot.create(:interview, { application: application, interviewer: interviewer }.merge(interview_schedule)) }
+
+        it "application" do
+            #different interviews for same application on same day and time slot
+            interview_two = FactoryBot.build(:interview, {application: application}.merge(interview_schedule))
+            expect(interview_two).to_not be_valid
+            expect(interview_two.errors.messages[:application]).to eq(["already has an interview in this time slot"])
+        end
+
+        # it "interviewer" do
+        #     dup_interview_for_interviewer = FactoryBot.build(:interview, { interviewer: interviewer }.merge(interview_schedule))
+        #     expect(dup_interview_for_interviewer.valid?).to eq(false)
+        # end
+    end
+
+    describe "#validate_interview_overlap" do
+        let(:interview_date) { { scheduled_on: "02-04-2019" } }
+        let(:start_time) { { start_time: "10:00 AM"} }
+        let(:end_time) { { end_time: "11:00 AM"} }
+
+        let(:interview_time_slot) {  start_time.merge(end_time) }
+        let(:interview_schedule) { interview_date.merge(interview_time_slot) }
+
+        let(:interviewer) { FactoryBot.create(:interviewer) }
+        let!(:interview) { FactoryBot.create(:interview, { interviewer: interviewer }.merge(interview_schedule)) }
+
+        context "does not raise exception when interviewer has interview" do
+            it "on different date and same time" do
+                expect do
+                    interview = FactoryBot.build_stubbed(:interview, { interviewer: interviewer, scheduled_on: "03-04-2019" }.merge(interview_time_slot))
+                end.to_not raise_error
+                expect(interview).to be_valid
+            end
+
+            it "on same date and different time" do
+                expect do
+                    interview = FactoryBot.build_stubbed(:interview, { interviewer: interviewer, start_time: "12:00 PM", end_time: "1:00 PM"}.merge(interview_date))
+                end.to_not raise_error
+                expect(interview).to be_valid
+            end
+
+            it "on different date and different time" do
+                expect do
+                    interview = FactoryBot.build_stubbed(:interview, { interviewer: interviewer, scheduled_on: "04-04-2019",start_time: "12:00 PM", end_time: "1:00 PM" })
+                end.to_not raise_error
+                expect(interview).to be_valid
+            end
+        end
+
+        context "raises InterviewTimeOverlap Exception when interviewer has interview" do
+            it "on same date and same time" do
+                 expect do
+                    FactoryBot.create(:interview, { interviewer: interviewer}.merge(interview_time_slot).merge(interview_date))
+                 end.to raise_error(Exceptions::InterviewTimeOverlapException)
+            end
+
+            it "on same date and within same time slot" do
+                expect do
+                   FactoryBot.create(:interview, { interviewer: interviewer, start_time: "10:20 AM", end_time: "10:40 AM"}.merge(interview_date))
+                end.to raise_error(Exceptions::InterviewTimeOverlapException)
+            end
+
+           it "on same date, same start_time and different end_time" do 
+                expect do
+                     FactoryBot.create(:interview, { interviewer: interviewer, end_time: "11:30 AM"}.merge(start_time).merge(interview_date))
+                end.to raise_error(Exceptions::InterviewTimeOverlapException)
+            end
+
+            it "on same date, different start_time and same end_time" do 
+                expect do
+                    FactoryBot.create(:interview, { interviewer: interviewer, start_time: "9:30 AM"}.merge(end_time).merge(interview_date))
+                end.to raise_error(Exceptions::InterviewTimeOverlapException)
+            end
+
+            # Should fix this use case
+            # it "on same date scenario 1" do
+            #     #interview two starts immediately after interview one
+            #     expect do
+            #         FactoryBot.create(:interview, { interviewer: interviewer, start_time: "11:00 AM", end_time: "12:00 PM"}.merge(interview_date))
+            #     end.to raise_error(Exceptions::InterviewTimeOverlapException)
+            # end
+
+            it "on same date scenario 2" do
+                #interview two starts immediately before interview one
+                expect do
+                    FactoryBot.create(:interview, { interviewer: interviewer, start_time: "09:00 AM", end_time: "10:00 AM"}.merge(interview_date))
+                end.to raise_error(Exceptions::InterviewTimeOverlapException)
+            end
+        end
+    end
 end

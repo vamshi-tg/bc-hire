@@ -6,8 +6,6 @@ class Interview < ApplicationRecord
   before_validation :prepend_scheduled_date_to_time
 
   validate :validate_time_slot
-  validates :interviewer, uniqueness: {scope: [:application, :start_time, :end_time], message: "already scheduled for this application at the same time"}
-  validates :interviewer, uniqueness: {scope: [:start_time, :end_time], message: "already has an interview in this time slot"}
   validates :application, uniqueness: {scope: [:start_time, :end_time], message: "already has an interview in this time slot"}
 
   validate :validate_interview_overlap
