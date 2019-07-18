@@ -1,24 +1,11 @@
-# README
+<div style="text-align: center;">
+  <h1>BC HIRE</h1>
+  <strong>BeautifulCode onboarding project</strong>
+  <br>
+  <br>
+  <h4 style="text-align: left;">A web app built with Ruby on Rails for scheduling interviews and capturing interview feeding.</h4>
+  <br>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+![](./app/assets/images/bc-hire.gif)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+</div>
