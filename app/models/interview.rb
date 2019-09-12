@@ -11,6 +11,8 @@ class Interview < ApplicationRecord
   validate :validate_interview_overlap
 
   has_many :feedback
+  has_many :topic_feedbacks
+  
   belongs_to :application
   belongs_to :interviewer, class_name: "Employee"
 

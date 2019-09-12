@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190624113241) do
+ActiveRecord::Schema.define(version: 20190912093656) do
 
   create_table "applications", force: :cascade do |t|
     t.integer "experience"
@@ -64,6 +64,28 @@ ActiveRecord::Schema.define(version: 20190624113241) do
     t.datetime "updated_at", null: false
     t.index ["application_id"], name: "index_interviews_on_application_id"
     t.index ["interviewer_id", "application_id", "start_time", "end_time"], name: "by_interviewier_and_application", unique: true
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.boolean "can_interview_round_1", default: false
+    t.boolean "can_interview_round_2", default: false
+    t.boolean "can_interview_round_3", default: false
+    t.boolean "can_interview_round_4", default: false
+    t.integer "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_permissions_on_employee_id"
+  end
+
+  create_table "topic_feedbacks", force: :cascade do |t|
+    t.string "name"
+    t.string "positives"
+    t.string "negatives"
+    t.string "candidate_level"
+    t.integer "interview_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["interview_id"], name: "index_topic_feedbacks_on_interview_id"
   end
 
 end
