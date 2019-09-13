@@ -18,6 +18,25 @@ class Interview < ApplicationRecord
 
   after_commit :send_interview_schedule_mail, on: :create
 
+  ROUND_TOPICS = {
+    round_1: {
+      ds_and_alogorithms: "Data Strucutres & Algorithms",
+      oops_and_programming: "OOPs Concepts/Programming",
+      db: "Database",
+      frameworks: "Frameworks (Django/Rails)",
+      round_1_overall_feedback: "Interviewer Round 1 overall feedback"
+    },
+    round_2: {
+      web_fundamentals: "Web Fundamentals",
+      css: "CSS",
+      js: "Javascript",
+      round_2_overall_feedback: "Interviewer Round 1 overall feedback"
+    },
+    round_3: {
+      behavioral: "Behavioural"
+    }
+  }
+
   def send_interview_schedule_mail
     InterviewMailer.interview_schedule(self).deliver_now
   end

@@ -1,3 +1,5 @@
+- interview_topic_feedbacks = get_interview_topic_feedbacks(interview.id)
+
 %d-flex.interview-card
     .card
         .card-header
@@ -10,12 +12,19 @@
                     =link_to "Edit", application_edit_interview_path(id: application.id, interview_id: interview.id)
         .card-body
             %p.card-title
-                = "Round Name: #{interview.round_name}"
+                = "Round Name: #{interview.round_name.titleize}"
             %p
                 = "Interview Date:  #{interview.scheduled_on}"
             .d-flex
                 %p="Interview Time Slot: #{formatted_time(interview.start_time)} - #{formatted_time(interview.end_time)}"
             %p= "Interviewer: #{get_name(interview.interviewer)}"
+
+            %hr
+            - if interview_topic_feedbacks.any?
+                =render 'topic_feedbacks/show', interview_topic_feedbacks: interview_topic_feedbacks, interview_id: interview.id
+            - else
+                =render 'topic_feedbacks/form', interview_id: interview.id, round_topics: round_topics[interview.round_name.to_sym]
+                
         .card-footer
             %p
                 Comments

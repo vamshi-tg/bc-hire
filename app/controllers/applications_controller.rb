@@ -11,7 +11,7 @@ class ApplicationsController < ApplicationController
     def show
         @application = Application.includes(interviews: :feedback).find(params[:id])
         @interviews = @application.interviews
-        @interview_id = params[:interview]
+        @round_topics = Interview::ROUND_TOPICS
     end
 
     def update_status

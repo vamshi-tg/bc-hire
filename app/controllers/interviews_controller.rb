@@ -5,6 +5,7 @@ class InterviewsController < ApplicationController
     @application_id = params[:id]
     @interviewers = get_interviewer_name_and_id_map
     @interview = Interview.new
+    @round_names = Interview::ROUND_TOPICS.keys
   end
 
   def create

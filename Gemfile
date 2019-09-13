@@ -26,7 +26,8 @@ gem 'fog', '1.42'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
-  gem 'byebug',  '9.0.6', platform: :mri
+  gem 'pry-byebug', '3.7'
+  gem 'byebug',  '11.0', platform: :mri
   gem 'rspec-rails', '3.8'
   gem 'factory_bot_rails'
   gem 'database_cleaner'

@@ -8,7 +8,7 @@
             - @interviews.each_with_index do |interview, index|
                 - interview_count = index + 1
                 .collapse{id: "interview-#{interview.id}-details", 'data-parent': "#interview-details-parent", class: "interview-details-collapsing"}
-                    = render "interview_card", application: @application, interview: interview, comments: interview.feedback, interview_index: interview_count
+                    = render "interview_card", application: @application, interview: interview, comments: interview.feedback, interview_index: interview_count, round_topics: @round_topics
 
 :javascript
     $(function () {
