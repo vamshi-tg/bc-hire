@@ -9,14 +9,14 @@
             %H4= "Topic Feedbacks"
         =link_to "Edit Feedback", "#", id: edit_feedback_button
 
-    = render 'topic_feedbacks/topic_feedback_header'
+    - interview_topic_feedbacks.each do |topic_feedback|    
+        .d-flex.flex-column
+            %ul
+                .font-weight-bold= get_topic_feedback_name(topic_feedback.name)
+                %li= "Positives-#{topic_feedback.positives}"
+                %li= "Negatives-#{topic_feedback.negatives}"
+                %li= "Candidate Level-#{topic_feedback.candidate_level}"
 
-    - interview_topic_feedbacks.each do |topic_feedback|
-        .d-flex.justify-content-between.mb-4
-            = label_tag get_topic_feedback_name(topic_feedback.name), nil, class: "topic_feedback"
-            = text_area_tag "positives", topic_feedback.positives, disabled: true, class: "topic_feedback_input mr-4 form-control", rows: 4
-            = text_area_tag "negatives", topic_feedback.negatives, disabled: true, class: "topic_feedback_input mr-4 form-control", rows: 4
-            = text_area_tag "candidate_level", topic_feedback.candidate_level, disabled: true, class: "topic_feedback_input form-control", rows: 4
 
 :javascript
     var edit_feedback_button_id = "#" + "#{edit_feedback_button}";
