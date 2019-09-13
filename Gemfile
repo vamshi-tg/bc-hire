@@ -23,6 +23,7 @@ gem 'bootstrap4-datetime-picker-rails'
 gem 'font-awesome-sass', '5.8.1'
 gem 'omniauth-google-oauth2'
 gem 'fog', '1.42'
+gem 'google-api-client', '0.11', require: 'google/apis/calendar_v3'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

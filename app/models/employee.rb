@@ -12,13 +12,17 @@ class Employee < ApplicationRecord
 	}
 
     def self.find_or_create_from_auth_hash(auth)
-        where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |employee|
+		where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |employee|
 			employee.provider = auth.provider
 			employee.uid = auth.uid
 			employee.first_name = auth.info.first_name
 			employee.last_name = auth.info.last_name
 			employee.email = auth.info.email
 			employee.picture = auth.info.image
+			employee.google_token = auth.credentials.token
+			employee.google_token_expires_at = auth.credentials.expires_at
+			refresh_token = auth.credentials.refresh_token
+			employee.refresh_token = refresh_token if refresh_token.present?
 			employee.save!
         end
 	end
