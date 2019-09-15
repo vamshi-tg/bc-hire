@@ -1,17 +1,16 @@
 class Interview < ApplicationRecord
+	include GoogleService::Calendar
   include ActiveModel::Dirty
 
   validates :round_name, :start_time, :end_time, :scheduled_on, presence: true
-
-  before_validation :prepend_scheduled_date_to_time
 
   validate :validate_time_slot
   validates :application, uniqueness: {scope: [:start_time, :end_time], message: "already has an interview in this time slot"}
 
   validate :validate_interview_overlap
 
-  has_many :feedback
-  has_many :topic_feedbacks
+  has_many :feedback, :dependent => :destroy
+  has_many :topic_feedbacks, :dependent => :destroy
   
   belongs_to :application
   belongs_to :interviewer, class_name: "Employee"
@@ -48,32 +47,6 @@ class Interview < ApplicationRecord
   private
     DATE_FORMAT = "%d-%m-%Y"
     TIME_FORMAT = "%I:%M %p"
-    TIMEZONE = "Kolkata"
-    DATETIME_ZONE_FORMAT = "#{DATE_FORMAT} #{TIME_FORMAT} %Z"
-
-    def prepend_scheduled_date_to_time
-      # By default time is storing the wrong year. So, building the time with interview date.
-      # Also, storing the date and time in IST timezone. While saving it will automatically before do
-      # stored in UTC format.
-      # Time.strptime("19-06-2019 7:14 PM Kolkata", "%d-%m-%Y %I:%M %p %Z")
-      if self.scheduled_on.present?
-        self.start_time = prepend_date(self.start_time)
-        self.end_time = prepend_date(self.end_time)
-      end
-    end
-
-    def prepend_date(time)
-      if time.present?
-        datetime_zone_value = get_date_and_time(self.scheduled_on, time)
-        time = Time.strptime(datetime_zone_value, DATETIME_ZONE_FORMAT)
-      end
-    end
-
-    def get_date_and_time(scheduled_on, time)
-      date = scheduled_on.strftime(DATE_FORMAT)
-      time = time.strftime(TIME_FORMAT)
-      return "#{date} #{time} #{TIMEZONE}"
-    end
 
     def validate_time_slot
       if(start_time != nil && end_time != nil)

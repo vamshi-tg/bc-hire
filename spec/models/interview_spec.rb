@@ -44,32 +44,6 @@ RSpec.describe Interview, type: :model do
 
     end
 
-    describe "#prepend_scheduled_date_to_time" do
-        context "when schedule_on is present" do
-            it 'should prepend schedule_on to start and end time' do  
-                interview_one.send(:prepend_scheduled_date_to_time)
-                expect(interview_one.start_time.to_date).to eq(interview_one.scheduled_on)
-                expect(interview_one.end_time.to_date).to eq(interview_one.scheduled_on)
-            end
-
-            it "should convert time to IST timezone" do
-                TIME_FORMAT = "%I:%M %p"
-                
-                interview = FactoryBot.build(:interview)
-                start_time_before = interview.start_time.strftime(TIME_FORMAT)
-                end_time_before = interview.end_time.strftime(TIME_FORMAT)
-                
-                interview.send(:prepend_scheduled_date_to_time)
-                
-                start_time_after = interview.start_time.in_time_zone("Kolkata").strftime(TIME_FORMAT)
-                end_time_after = interview.end_time.in_time_zone("Kolkata").strftime(TIME_FORMAT)
-
-                expect(start_time_before).to eq(start_time_after)
-                expect(end_time_before).to eq(end_time_after)
-            end
-        end
-    end
-
     describe "#send_interview_schedule_mail" do
         it "sends mail" do
             allow(InterviewMailer).to receive_message_chain(:interview_schedule, :deliver_now)
@@ -118,8 +92,8 @@ RSpec.describe Interview, type: :model do
 
     describe "#validate_interview_overlap" do
         let(:interview_date) { { scheduled_on: "02-04-2019" } }
-        let(:start_time) { { start_time: "10:00 AM"} }
-        let(:end_time) { { end_time: "11:00 AM"} }
+        let(:start_time) { { start_time: "02-04-2019 10:00 AM"} }
+        let(:end_time) { { end_time: "02-04-2019 11:00 AM"} }
 
         let(:interview_time_slot) {  start_time.merge(end_time) }
         let(:interview_schedule) { interview_date.merge(interview_time_slot) }
@@ -130,23 +104,23 @@ RSpec.describe Interview, type: :model do
         context "does not raise exception when interviewer has interview" do
             it "on different date and same time" do
                 expect do
-                    interview = FactoryBot.build_stubbed(:interview, { interviewer: interviewer, scheduled_on: "03-04-2019" }.merge(interview_time_slot))
+                    interview_two = FactoryBot.build_stubbed(:interview, { interviewer: interviewer, scheduled_on: "03-04-2019", start_time: "03-04-2019 10:00 AM", end_time: "03-04-2019 11:00 AM"})
+                    expect(interview_two).to be_valid
                 end.to_not raise_error
-                expect(interview).to be_valid
             end
 
             it "on same date and different time" do
                 expect do
-                    interview = FactoryBot.build_stubbed(:interview, { interviewer: interviewer, start_time: "12:00 PM", end_time: "1:00 PM"}.merge(interview_date))
+                    interview_two = FactoryBot.build_stubbed(:interview, { interviewer: interviewer, start_time: "02-04-2019 12:00 PM", end_time: "02-04-2019 1:00 PM"}.merge(interview_date))
+                    expect(interview_two).to be_valid
                 end.to_not raise_error
-                expect(interview).to be_valid
             end
 
             it "on different date and different time" do
                 expect do
-                    interview = FactoryBot.build_stubbed(:interview, { interviewer: interviewer, scheduled_on: "04-04-2019",start_time: "12:00 PM", end_time: "1:00 PM" })
+                    interview_two = FactoryBot.build_stubbed(:interview, { interviewer: interviewer, scheduled_on: "04-04-2019",start_time: "04-04-2019 12:00 PM", end_time: "04-04-2019 1:00 PM" })
+                    expect(interview_two).to be_valid
                 end.to_not raise_error
-                expect(interview).to be_valid
             end
         end
 
@@ -159,19 +133,19 @@ RSpec.describe Interview, type: :model do
 
             it "on same date and within same time slot" do
                 expect do
-                   FactoryBot.create(:interview, { interviewer: interviewer, start_time: "10:20 AM", end_time: "10:40 AM"}.merge(interview_date))
+                   FactoryBot.create(:interview, { interviewer: interviewer, start_time: "02-04-2019 10:20 AM", end_time: "02-04-2019 10:40 AM"}.merge(interview_date))
                 end.to raise_error(Exceptions::InterviewTimeOverlapException)
             end
 
            it "on same date, same start_time and different end_time" do 
                 expect do
-                     FactoryBot.create(:interview, { interviewer: interviewer, end_time: "11:30 AM"}.merge(start_time).merge(interview_date))
+                     FactoryBot.create(:interview, { interviewer: interviewer, end_time: "02-04-2019 11:30 AM"}.merge(start_time).merge(interview_date))
                 end.to raise_error(Exceptions::InterviewTimeOverlapException)
             end
 
             it "on same date, different start_time and same end_time" do 
                 expect do
-                    FactoryBot.create(:interview, { interviewer: interviewer, start_time: "9:30 AM"}.merge(end_time).merge(interview_date))
+                    FactoryBot.create(:interview, { interviewer: interviewer, start_time: "02-04-2019 9:30 AM"}.merge(end_time).merge(interview_date))
                 end.to raise_error(Exceptions::InterviewTimeOverlapException)
             end
 
@@ -186,7 +160,7 @@ RSpec.describe Interview, type: :model do
             it "on same date scenario 2" do
                 #interview two starts immediately before interview one
                 expect do
-                    FactoryBot.create(:interview, { interviewer: interviewer, start_time: "09:00 AM", end_time: "10:00 AM"}.merge(interview_date))
+                    FactoryBot.create(:interview, { interviewer: interviewer, start_time: "02-04-2019 09:00 AM", end_time: "02-04-2019 10:00 AM"}.merge(interview_date))
                 end.to raise_error(Exceptions::InterviewTimeOverlapException)
             end
         end

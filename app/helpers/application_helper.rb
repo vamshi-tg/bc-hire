@@ -9,12 +9,11 @@ module ApplicationHelper
     end
 
     def formatted_time(time)
-        time = time.in_time_zone("Kolkata")
-        time.strftime("%I:%M %p")
+        time.strftime(Interview::TIME_FORMAT)
     end
 
     def get_date(time)
-        time.strftime("%d-%m-%Y")
+        time.strftime(Interview::DATE_FORMAT)
     end
 
     def login_url?

@@ -41,10 +41,28 @@
         });
 
         $('#start_time_picker').datetimepicker({
-            format: 'LT'
+            format: 'LT',
+            timeZone: 'Asia/Kolkata'
         });
 
         $('#end_time_picker').datetimepicker({
-            format: 'LT'
+            format: 'LT',
+            timeZone: 'Asia/Kolkata'
         });
+
+        $(".new_interview").submit(function(e) {
+            var interviewDate = $('#date_picker').datetimepicker('date').format('DD-MM-YYYY');
+
+            prefixInterviewDateToTime($('#start_time_picker'), interviewDate);
+            prefixInterviewDateToTime($('#end_time_picker'), interviewDate);
+
+            return true;
+        });
+
+        function prefixInterviewDateToTime(ele, interviewDate) {
+            var time = ele.datetimepicker('date').format('LT');
+            var dateTime = moment(interviewDate + ' ' + time,  'DD-MM-YYYY LT');
+            ele.datetimepicker('date', dateTime);
+            ele.datetimepicker('format', 'DD-MM-YYYY LT');
+        }
     });
