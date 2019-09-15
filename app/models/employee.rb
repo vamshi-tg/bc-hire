@@ -11,6 +11,10 @@ class Employee < ApplicationRecord
 		interviewer: "interviewer"
 	}
 
+	def google_token_expired?
+		self.google_token_expires_at < Time.current.to_i
+	end
+
     def self.find_or_create_from_auth_hash(auth)
 		where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |employee|
 			employee.provider = auth.provider
@@ -20,7 +24,7 @@ class Employee < ApplicationRecord
 			employee.email = auth.info.email
 			employee.picture = auth.info.image
 			employee.google_token = auth.credentials.token
-			employee.google_token_expires_at = auth.credentials.expires_at
+			employee.google_token_expires_at = auth.credentials.expires_at.to_i
 			refresh_token = auth.credentials.refresh_token
 			employee.refresh_token = refresh_token if refresh_token.present?
 			employee.save!

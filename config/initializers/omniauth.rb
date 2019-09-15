@@ -1,5 +1,6 @@
-Rails.application.config.middleware.use OmniAuth::Builder do
-    GOOGLE_CLIENT_ID = "1090375265634-g1kpc64r1l35rm4q864f364hgdeeltge.apps.googleusercontent.com"
-    GOOGLE_CLIENT_SECRET = "qcLBrNWCUK7t2CRRgvuMh8Xf"
-    provider :google_oauth2, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
+Rails.application.config.middleware.use OmniAuth::Builder do 
+    provider :google_oauth2,
+             Rails.application.secrets.google_client_id, 
+             Rails.application.secrets.google_client_secret,
+             scope: 'userinfo.email, calendar, profile'
 end

@@ -44,6 +44,7 @@ class InterviewsController < ApplicationController
     def save_interview(interview)
       if interview.save
         flash[:success] = "Scheduled Interview"
+        interview.create_calendar_event(current_user)
         #TODO Try to better this
         redirect_to application_path(id: application_id_param[:id], interview: interview.id, anchor: "interviews")
       else
@@ -54,7 +55,8 @@ class InterviewsController < ApplicationController
     def update_interview(interview)
       if interview.update_attributes(interview_params)
         flash[:success] = "Updated Interview Details"
-        send_relevant_interview_mail(interview)
+        interview.update_calendar_event(current_user)
+        # send_relevant_interview_mail(interview)
         #TODO Try to better this
         redirect_to application_path(id: application_id_param[:id], interview: interview.id, anchor: "interviews")
       else

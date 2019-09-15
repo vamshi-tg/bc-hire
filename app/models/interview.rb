@@ -7,7 +7,7 @@ class Interview < ApplicationRecord
   validate :validate_time_slot
   validates :application, uniqueness: {scope: [:start_time, :end_time], message: "already has an interview in this time slot"}
 
-  validate :validate_interview_overlap
+  validate :validate_interview_overlap, if: :new_record_or_interview_time_changed?
 
   has_many :feedback, :dependent => :destroy
   has_many :topic_feedbacks, :dependent => :destroy
@@ -62,5 +62,9 @@ class Interview < ApplicationRecord
       if interviewer_interviews.any?
         raise Exceptions::InterviewTimeOverlapException
       end
+    end
+
+    def new_record_or_interview_time_changed?
+      self.new_record? || self.start_time_changed? || self.end_time_changed?
     end
 end

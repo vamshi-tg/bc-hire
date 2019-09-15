@@ -23,7 +23,7 @@ gem 'bootstrap4-datetime-picker-rails'
 gem 'font-awesome-sass', '5.8.1'
 gem 'omniauth-google-oauth2'
 gem 'fog', '1.42'
-gem 'google-api-client', '0.11', require: 'google/apis/calendar_v3'
+gem 'google-api-client', '0.30.10', require: ['google/apis/calendar_v3', 'google/api_client/client_secrets.rb']
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
@@ -32,6 +32,7 @@ group :development, :test do
   gem 'rspec-rails', '3.8'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
+  gem 'dotenv-rails'
 
   # https://girders.org/2014/02/setup-rails-41-spring-rspec-and-guard.html For setting up rspec with guard
   gem 'spring-commands-rspec'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190913141925) do
+ActiveRecord::Schema.define(version: 20190914055601) do
 
   create_table "applications", force: :cascade do |t|
     t.integer "experience"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20190913141925) do
     t.string "provider"
     t.string "google_token"
     t.string "refresh_token"
-    t.string "google_token_expires_at"
+    t.integer "google_token_expires_at"
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20190913141925) do
     t.integer "application_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "google_event_id"
     t.index ["application_id"], name: "index_interviews_on_application_id"
     t.index ["interviewer_id", "application_id", "start_time", "end_time"], name: "by_interviewier_and_application", unique: true
   end
