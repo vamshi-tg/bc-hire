@@ -7,9 +7,7 @@ class TopicFeedbacksController < ApplicationController
             TopicFeedback.new(feedback_params(topic)).tap do |topic_feedback|
                 topic_feedback.name = topic
                 topic_feedback.interview_id = interview.id
-                unless topic_feedback.save
-                    @errors << topic_feedback.errors.full_messages
-                end
+                @errors << topic_feedback.errors.full_messages unless topic_feedback.save
             end
         end
 
@@ -44,9 +42,8 @@ class TopicFeedbacksController < ApplicationController
 
         params[:round].each do |topic_name, feedbacks|
             topic_feedback = TopicFeedback.find_by(name: topic_name, interview_id: params[:interview_id])
-            unless topic_feedback.update_attributes(feedback_params(topic_name))
-                @errors << topic_feedback.errors.full_messages
-            end
+            is_updated = topic_feedback.update_attributes(feedback_params(topic_name))
+            @errors << topic_feedback.errors.full_messages unless is_updated
         end
 
         if @errors.present?
@@ -62,11 +59,10 @@ class TopicFeedbacksController < ApplicationController
                         }) 
                     }
         end
-
     end
 
     private
-    def feedback_params(topic)
-        params.require(:round).require(topic.to_sym).permit(:positives, :negatives, :candidate_level)
-    end
+        def feedback_params(topic)
+            params.require(:round).require(topic.to_sym).permit(:positives, :negatives, :candidate_level)
+        end
 end

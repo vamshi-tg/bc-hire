@@ -2,7 +2,7 @@ class Employee < ApplicationRecord
     has_many :interviews, class_name: "Interview", foreign_key: "interviewer_id"
 	has_many :feedback, class_name: "Feedback", foreign_key: "interviewer_id"
 	has_many :applications, class_name: "Application", foreign_key: "owner_id"
-	has_many :permissions, dependent: :destroy
+	has_one :permission, dependent: :destroy
 	
 	has_many :involved_applications, through: :interviews, source: :application
 
