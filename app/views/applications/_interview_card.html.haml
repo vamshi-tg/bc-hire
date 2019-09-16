@@ -19,11 +19,10 @@
                 %p="Interview Time Slot: #{formatted_time(interview.start_time)} - #{formatted_time(interview.end_time)}"
             %p= "Interviewer: #{get_name(interview.interviewer)}"
 
-            %hr
             - if interview_topic_feedbacks.any?
                 =render 'topic_feedbacks/show', interview_topic_feedbacks: interview_topic_feedbacks, interview_id: interview.id
             - else
-                =render 'topic_feedbacks/form', interview_id: interview.id, round_topics: round_topics[interview.round_name.to_sym]
+                =render 'topic_feedbacks/new', interview_id: interview.id, round_topics: round_topics[interview.round_name.to_sym]
                 
         .card-footer
             %p

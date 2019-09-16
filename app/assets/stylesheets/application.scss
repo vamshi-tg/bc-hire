@@ -123,6 +123,7 @@ footer {
 
 .main-content{
     flex-grow: 1;
+    height: inherit;
 
     .sub-content{
         flex: 1;
@@ -176,8 +177,12 @@ footer {
     flex: 1;
 }
 
-.topic_feedback{
+.flex-1{
     flex: 1;
+}
+
+.flex-6{
+    flex: 6;
 }
 
 .timeline-container{

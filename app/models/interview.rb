@@ -20,7 +20,7 @@ class Interview < ApplicationRecord
   ROUND_TOPICS = {
     round_1: {
       ds_and_alogorithms: "Data Strucutres & Algorithms",
-      oops_and_programming: "OOPs Concepts/Programming",
+      oops_and_programming: "OOPS Concepts/Programming",
       db: "Database",
       frameworks: "Frameworks (Django/Rails)",
       round_1_overall_feedback: "Interviewer Round 1 overall feedback"

@@ -51,10 +51,11 @@ Rails.application.routes.draw do
   resources :candidates
   resources :applications, only: [:index, :show]
   resources :interview do
-    resources :topic_feedbacks, only: [:create] do
+    resources :topic_feedbacks, only: [] do
       collection do
-        get 'edit'
-        patch 'update'
+        get 'bulk_edit', to: "topic_feedbacks#edit"
+        put 'bulk_update', to: "topic_feedbacks#update"
+        post 'bulk_create', to: "topic_feedbacks#create"
       end
     end
   end

@@ -1,0 +1,51 @@
+-#     = render 'shared/error_messages', object: nil
+
+- url= bulk_create_interview_topic_feedbacks_url(interview_id: interview_id)
+- feedback_container_id= "topic-feedback-container-#{interview_id}"
+- submit_button_id = "topic-feedback-submit-#{interview_id}"
+
+%div{id: feedback_container_id}
+    .border.rounded.p-4
+        .d-flex.justify-content-center.mb-4
+            %H4= "Create Topic Feedback"
+
+        = form_with id: "form_#{interview_id}" do
+            - round_topics.each do |topic_key, topic_value|
+                %h4
+                    %i.fa.fa-angle-right
+                    %span.text-primary= get_topic_feedback_name(topic_key).titleize
+                %div
+                    .d-flex.justify-content-between.flex-wrap.mb-2
+                        .flex-1 Positives
+                        %div.flex-6.d-flex
+                            = text_area_tag "round[#{topic_key}][positives]", nil, class: "form-control", rows: 4
+                    .d-flex.justify-content-between.mb-2
+                        .flex-1 Negatives
+                        %div.flex-6.d-flex
+                            = text_area_tag "round[#{topic_key}][negatives]", nil, class: "form-control", rows: 4
+                    .d-flex.justify-content-between
+                        .flex-1 Candidate Level
+                        %div.flex-6.d-flex
+                            = text_area_tag "round[#{topic_key}][candidate_level]", nil, class: "form-control", rows: 4
+                    %hr
+            .d-flex.justify-content-center
+                = submit_tag 'Submit Feedback', { id: submit_button_id, class: "btn btn-primary" }
+
+:javascript
+    $(document).ready(function(){
+        var sumbit_button_id = "#" + "#{submit_button_id}";
+        var feedback_container_id = "#" + "#{feedback_container_id}";
+
+        $(sumbit_button_id).click(function(e) {
+            $.post({
+                url: "#{url}",
+                data: $("#form_#{interview_id}").serialize(),
+                success: function(data) {
+                    $(feedback_container_id).html(data.html);
+                }
+            });
+
+            e.preventDefault();
+        });
+    });
+    

@@ -1,22 +1,40 @@
 - edit_feedback_button = "edit-feedback-#{interview_id}"
 - edit_feedback_button = "edit-feedback-#{interview_id}"
 - feedback_container_id= "topic-feedback-container-#{interview_id}"
-- edit_feedback_url = edit_interview_topic_feedbacks_url(interview_id: interview_id)
+- edit_feedback_url = bulk_edit_interview_topic_feedbacks_url(interview_id: interview_id)
 
 %div{id: feedback_container_id}
-    .d-flex.justify-content-between.mb-4
-        .d-flex.justify-content-center
-            %H4= "Topic Feedbacks"
-        =link_to "Edit Feedback", "#", id: edit_feedback_button
+    .border.rounded.p-4
+        .d-flex.justify-content-between.mb-4
+            .d-flex.justify-content-center.flex-1
+                %H4= "Topic Feedback"
+            =link_to "Edit Feedback", "#", id: edit_feedback_button
 
-    - interview_topic_feedbacks.each do |topic_feedback|    
-        .d-flex.flex-column
-            %ul
-                .font-weight-bold= get_topic_feedback_name(topic_feedback.name)
-                %li= "Positives-#{topic_feedback.positives}"
-                %li= "Negatives-#{topic_feedback.negatives}"
-                %li= "Candidate Level-#{topic_feedback.candidate_level}"
-
+        - interview_topic_feedbacks.each do |topic_feedback|  
+            %h4
+                %i.fa.fa-angle-right
+                %span.text-primary= get_topic_feedback_name(topic_feedback.name).titleize
+            %table.table.table-bordered
+                %tbody
+                    %tr
+                        %th.w-25 Positives
+                        - if topic_feedback.positives.blank?
+                            %td No Feedback
+                        - else
+                            %td= topic_feedback.positives
+                    %tr
+                        %th.w-25 Negatives
+                        - if topic_feedback.negatives.blank?
+                            %td No Feedback
+                        - else
+                            %td= topic_feedback.negatives
+                    %tr
+                        %th.w-25 Candidates Level
+                        - if topic_feedback.candidate_level.blank?
+                            %td No Feedback
+                        - else
+                            %td= topic_feedback.candidate_level
+            %hr
 
 :javascript
     var edit_feedback_button_id = "#" + "#{edit_feedback_button}";
