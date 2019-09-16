@@ -6,7 +6,7 @@
             = render 'shared/error_messages', object: @interview
             .my-3
                 = f.label :round_name
-                = f.text_field :round_name, class: 'form-control'
+                = f.select :round_name, options_for_select(@round_names, selected: @interview.round_name), include_blank: 'Select Round', class: 'select-role'
 
             .my-3
                 = f.label :interviewer
@@ -36,19 +36,30 @@
 
 :javascript
     $(function () {
-         $('#date_picker').datetimepicker({
-            format: 'DD-MM-YYYY'
-        });
+         init();
 
-        $('#start_time_picker').datetimepicker({
-            format: 'LT',
-            timeZone: 'Asia/Kolkata'
-        });
+         function init() {
+             var interviewStartTime = "#{@interview.start_time}";
+             var interviewEndTime = "#{@interview.end_time}";
+             var interviewDate = "#{@interview.scheduled_on}";
 
-        $('#end_time_picker').datetimepicker({
-            format: 'LT',
-            timeZone: 'Asia/Kolkata'
-        });
+            $('#date_picker').datetimepicker({
+                format: 'DD-MM-YYYY',
+                date: moment(interviewDate)
+            });
+
+            $('#start_time_picker').datetimepicker({
+                format: 'LT',
+                timeZone: 'Asia/Kolkata',
+                date: moment(interviewStartTime)
+            });
+
+            $('#end_time_picker').datetimepicker({
+                format: 'LT',
+                timeZone: 'Asia/Kolkata',
+                date: moment(interviewEndTime)
+            });
+         }
 
         $(".edit_interview").submit(function(e) {
             var interviewDate = $('#date_picker').datetimepicker('date').format('DD-MM-YYYY');

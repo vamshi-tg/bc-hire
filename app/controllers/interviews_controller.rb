@@ -1,11 +1,12 @@
 class InterviewsController < ApplicationController
   include InterviewsHelper
   
+  before_action :set_round_names, only: [:new, :edit]
+
   def new
     @application_id = params[:id]
     @interviewers = get_interviewer_name_and_id_map
     @interview = Interview.new
-    @round_names = Interview::ROUND_TOPICS.keys
   end
 
   def create
@@ -39,6 +40,9 @@ class InterviewsController < ApplicationController
     end
   end
 
+  def set_round_names
+    @round_names = Interview::ROUND_TOPICS.keys
+  end
 
   private
     def save_interview(interview)

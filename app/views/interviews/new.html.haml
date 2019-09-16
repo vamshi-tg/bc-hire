@@ -6,11 +6,11 @@
             = render 'shared/error_messages', object: @interview
             .my-3
                 = f.label :round_name
-                = f.select :round_name, options_for_select(@round_names), prompt: 'Select Round', class: 'select-role'
+                = f.select :round_name, options_for_select(@round_names), include_blank: 'Select Round', class: 'select-role'
 
             .my-3
                 = f.label :interviewer
-                = f.select :interviewer_id, options_for_select(@interviewers), prompt: 'Select Interviewer', class: 'select-role'
+                = f.select :interviewer_id, options_for_select(@interviewers), include_blank: 'Select Interviewer', class: 'select-role'
 
             .d-flex.justify-content-between
                 -# - provide(:obj, "interview")
