@@ -1,6 +1,6 @@
 %h1 Application Status
 %h3
-  = "#{get_name(@triggerer)} has updated the application status from #{@previous_change[0]} to #{@previous_change[1]}"
+  = "#{@triggerer.name} has updated the application status from #{@previous_change[0]} to #{@previous_change[1]}"
 
 %p
   %h3

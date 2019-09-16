@@ -90,8 +90,8 @@ class InterviewsController < ApplicationController
     def get_interviewer_name_and_id_map
         name_id_map = {}
 
-        Employee.select(:id, :first_name, :last_name).each do |employee|
-          name_id_map[get_name(employee)] = employee.id 
+        Employee.select(:id, :name).each do |employee|
+          name_id_map[employee.name] = employee.id 
         end
         
         return name_id_map

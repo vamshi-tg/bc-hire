@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190914055601) do
+ActiveRecord::Schema.define(version: 20190916163753) do
 
   create_table "applications", force: :cascade do |t|
     t.integer "experience"
@@ -38,8 +38,7 @@ ActiveRecord::Schema.define(version: 20190914055601) do
     t.datetime "updated_at", null: false
     t.string "uid"
     t.string "email"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "name"
     t.string "picture"
     t.string "provider"
     t.string "google_token"

@@ -19,8 +19,7 @@ class Employee < ApplicationRecord
 		where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |employee|
 			employee.provider = auth.provider
 			employee.uid = auth.uid
-			employee.first_name = auth.info.first_name
-			employee.last_name = auth.info.last_name
+			employee.name = auth.info.name
 			employee.email = auth.info.email
 			employee.picture = auth.info.image
 			employee.google_token = auth.credentials.token

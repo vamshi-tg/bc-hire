@@ -18,13 +18,19 @@ end
 # Employee
 roles = ["manager", "interviewer"]
 5.times do |n|
-    first_name = Faker::Name.first_name
-    last_name = Faker::Name.last_name
-    email = "#{first_name}.#{last_name}@example.com"
+    name = Faker::Name.name
+    email = "#{name.parameterize.underscore}@example.com"
     role = n % 2 == 0 ? roles[0] : roles[1] 
     provider = "google_oauth2"
     uid = Faker::Number.number(10)
-    Employee.create!(first_name: first_name, last_name: last_name, email: email, role: role, provider: provider, uid: uid)
+    Employee.create!(name: name, email: email, role: role, provider: provider, uid: uid)
+end
+
+# Employee Permissions
+Employee.all.each do |emp|
+    rand_bool = [true, false].sample
+    emp.create_permission(can_interview_round_1: rand_bool, can_interview_round_2: rand_bool,
+                            can_interview_round_3: rand_bool, can_interview_round_4: rand_bool)
 end
 
 # Candidates Application

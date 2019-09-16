@@ -6,8 +6,7 @@ module OmniauthMacros
         'provider' => 'google',
         'uid' => '123545',
         'user_info' => {
-          'first_name' => 'mockuser_first_name',
-          'last_name' => 'mockuser_last_name',
+          'name' => 'mockuser_name',
           'email' => 'mockuser@beautifulcode.in',
           'image' => 'mock_user_thumbnail_url'
         }})
