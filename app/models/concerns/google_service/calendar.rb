@@ -26,14 +26,8 @@ module GoogleService
 
         if existing_event
           event = GoogleService::Events.update_interview_event(existing_event, self)
-          response = calendar_client(current_user).update(event)
-
-          if response[:event]
-            self.update_attributes(google_event_id: response[:event].id)
-          else
-            logger.error "#{response[:err].exception.message}"
-          end
-          
+          update_response = calendar_client(current_user).update(event)
+          logger.error "#{update_response[:err].exception.message}" if update_response[:err]
         else
           logger.error "#{response[:err].exception.message}"
         end

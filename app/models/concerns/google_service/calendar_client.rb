@@ -63,6 +63,6 @@ module GoogleService
                 end
         
                 client 
-            end
+            end 
     end
 end
