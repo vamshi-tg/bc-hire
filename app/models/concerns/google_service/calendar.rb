@@ -10,7 +10,7 @@ module GoogleService
         response = calendar_client(current_user).create(event)
 
         if response[:event]
-          self.update_attributes(google_event_id: response[:event].id)
+          self.update_attribute(:google_event_id, response[:event].id)
         else
           logger.error "#{response[:err].exception.message}"
         end

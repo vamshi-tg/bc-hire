@@ -3,11 +3,10 @@ class Interview < ApplicationRecord
   include ActiveModel::Dirty
 
   validates :round_name, :start_time, :end_time, :scheduled_on, presence: true
-
-  validate :validate_time_slot
+  validates :application, uniqueness: {scope: [:round_name], message: "already has the selected round"}
   validates :application, uniqueness: {scope: [:start_time, :end_time], message: "already has an interview in this time slot"}
-
-  validate :validate_interview_overlap, if: :new_record_or_interview_time_changed?
+  validate :validate_time_slot
+  validate :validate_interview_overlap, if: -> { self.interviewer.present? }
 
   has_many :feedback, :dependent => :destroy
   has_many :topic_feedbacks, :dependent => :destroy
@@ -15,7 +14,7 @@ class Interview < ApplicationRecord
   belongs_to :application
   belongs_to :interviewer, class_name: "Employee"
 
-  after_commit :send_interview_schedule_mail, on: :create
+  # after_commit :send_interview_schedule_mail, on: :create
 
   ROUNDS = [:round_1, :round_2, :round_3, :round_4]
   
@@ -35,6 +34,9 @@ class Interview < ApplicationRecord
     },
     round_3: {
       behavioral: "Behavioural"
+    },
+    round_4: {
+      final_round: "Final Round"
     }
   }
 
@@ -64,9 +66,5 @@ class Interview < ApplicationRecord
       if interviewer_interviews.any?
         raise Exceptions::InterviewTimeOverlapException
       end
-    end
-
-    def new_record_or_interview_time_changed?
-      self.new_record? || self.start_time_changed? || self.end_time_changed?
     end
 end
