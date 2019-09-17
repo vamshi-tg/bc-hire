@@ -17,6 +17,8 @@ class Interview < ApplicationRecord
 
   after_commit :send_interview_schedule_mail, on: :create
 
+  ROUNDS = [:round_1, :round_2, :round_3, :round_4]
+  
   ROUND_TOPICS = {
     round_1: {
       ds_and_alogorithms: "Data Strucutres & Algorithms",

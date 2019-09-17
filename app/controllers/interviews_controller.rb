@@ -2,10 +2,10 @@ class InterviewsController < ApplicationController
   include InterviewsHelper
   
   before_action :set_round_names, only: [:new, :edit]
+  before_action :set_round_wise_interviewers_map, only: [:new, :edit]
 
   def new
     @application_id = params[:id]
-    @interviewers = get_interviewer_name_and_id_map
     @interview = Interview.new
   end
 
@@ -24,7 +24,6 @@ class InterviewsController < ApplicationController
 
   def edit
     @application_id = params[:id]
-    @interviewers = get_interviewer_name_and_id_map
     @interview = Interview.find(params[:interview_id])
   end
 
@@ -41,7 +40,11 @@ class InterviewsController < ApplicationController
   end
 
   def set_round_names
-    @round_names = Interview::ROUND_TOPICS.keys
+    @round_names = Interview::ROUNDS
+  end
+
+  def set_round_wise_interviewers_map
+    @round_wise_interviewers = Employee.get_round_wise_interviewers
   end
 
   private
@@ -85,16 +88,6 @@ class InterviewsController < ApplicationController
 
     def redirect_to_edit_application_interview_path(flash)
       redirect_to application_edit_interview_path(id: params[:application_id], interview_id: params[:interview_id]), flash
-    end
-
-    def get_interviewer_name_and_id_map
-        name_id_map = {}
-
-        Employee.select(:id, :name).each do |employee|
-          name_id_map[employee.name] = employee.id 
-        end
-        
-        return name_id_map
     end
 
     def update_application_status(interview)

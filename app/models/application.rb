@@ -1,7 +1,7 @@
 class Application < ApplicationRecord
   include ActiveModel::Dirty
 
-  has_many :interviews
+  has_many :interviews, dependent: :destroy
   belongs_to :candidate
   belongs_to :owner, class_name: "Employee"
 

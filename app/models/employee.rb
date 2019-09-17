@@ -37,4 +37,28 @@ class Employee < ApplicationRecord
 	def self.is_manager?(employee)
 		employee.role == ROLE[:manager]
 	end
+
+	def self.get_round_wise_interviewers
+		round_wise_interviewers = {}  
+		Interview::ROUNDS.each do |round_name|
+			interviewers = Employee.get_interviewers_for_round(round_name)
+			round_wise_interviewers[round_name] = get_interviewer_name_and_id_map(interviewers)
+		end
+		round_wise_interviewers
+	end
+
+	def self.get_interviewers_for_round(round_name)
+		Employee.joins(:permission).where(permissions: { "can_interview_#{round_name}": true })
+	end
+
+	private
+		def self.get_interviewer_name_and_id_map(employees)
+			name_id_map = {}
+
+			employees.each do |employee|
+				name_id_map[employee.name] = employee.id 
+			end
+
+			return name_id_map
+		end
 end

@@ -1,3 +1,5 @@
+- round_wise_interviewers_json = raw(@round_wise_interviewers.to_json)
+
 .d-flex.new-interview-container.justify-content-center
     .d-flex.flex-column
         .d-flex
@@ -10,7 +12,7 @@
 
             .my-3
                 = f.label :interviewer
-                = f.select :interviewer_id, options_for_select(@interviewers, selected: @interview.interviewer_id), include_blank: 'Select Interviewer', class: 'select-role'
+                = f.select :interviewer_id, options_for_select(@round_wise_interviewers[@interview.round_name.to_sym], selected: @interview.interviewer_id), include_blank: 'Select Interviewer', class: 'select-role'
 
             .d-flex.justify-content-between
                 -# - provide(:obj, "interview")
@@ -36,44 +38,58 @@
 
 :javascript
     $(function () {
-         init();
+        var $dateEle, $startTimeEle, $endTimeEle;
 
-         function init() {
-             var interviewStartTime = "#{@interview.start_time}";
-             var interviewEndTime = "#{@interview.end_time}";
-             var interviewDate = "#{@interview.scheduled_on}";
+        init();
 
-            $('#date_picker').datetimepicker({
-                format: 'DD-MM-YYYY',
-                date: moment(interviewDate)
+        function init() {
+            //Form Elements
+            $dateEle = $('#date_picker');
+            $startTimeEle = $('#start_time_picker');
+            $endTimeEle = $('#end_time_picker');
+
+            intializeInterviewScheduleElements();
+            setupInterviewersDropDown();
+            setupFormSubmit();
+        }
+
+        function intializeInterviewScheduleElements() {
+            var interviewStartTime = "#{@interview.start_time}";
+            var interviewEndTime = "#{@interview.end_time}";
+            var interviewDate = "#{@interview.scheduled_on}";
+
+            $dateEle.datetimepicker({
+                format: DATE_FORMAT,
+                date: getFormattedDate(interviewDate)
             });
 
-            $('#start_time_picker').datetimepicker({
-                format: 'LT',
+            $startTimeEle.datetimepicker({
+                format: TIME_FORMAT,
                 timeZone: 'Asia/Kolkata',
-                date: moment(interviewStartTime)
+                date: getFormattedDate(interviewStartTime)
             });
 
-            $('#end_time_picker').datetimepicker({
-                format: 'LT',
+            $endTimeEle.datetimepicker({
+                format: TIME_FORMAT,
                 timeZone: 'Asia/Kolkata',
-                date: moment(interviewEndTime)
+                date: getFormattedDate(interviewEndTime)
             });
-         }
+        }
 
-        $(".edit_interview").submit(function(e) {
-            var interviewDate = $('#date_picker').datetimepicker('date').format('DD-MM-YYYY');
+        function setupInterviewersDropDown() {
+            var roundWiseInterviewers = #{round_wise_interviewers_json};
+            setupDynamicInterviewersDropDown($('select#interview_round_name'), 
+                                             $("select#interview_interviewer_id"), 
+                                             roundWiseInterviewers);
+        }
 
-            prefixInterviewDateToTime($('#start_time_picker'), interviewDate);
-            prefixInterviewDateToTime($('#end_time_picker'), interviewDate);
+        function setupFormSubmit() {
+            var interviewScheduleElements = {
+                date: $dateEle,
+                startTime: $startTimeEle,
+                endTime: $endTimeEle 
+            }
 
-            return true;
-        });
-
-        function prefixInterviewDateToTime(ele, interviewDate) {
-            var time = ele.datetimepicker('date').format('LT');
-            var dateTime = moment(interviewDate + ' ' + time,  'DD-MM-YYYY LT');
-            ele.datetimepicker('date', dateTime);
-            ele.datetimepicker('format', 'DD-MM-YYYY LT');
+            handleInterviewFormSubmit($(".edit_interview"), interviewScheduleElements);
         }
     });
