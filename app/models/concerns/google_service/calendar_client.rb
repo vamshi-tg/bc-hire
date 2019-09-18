@@ -36,6 +36,10 @@ module GoogleService
         private
             def init_client(employee)
                 client = Google::Apis::CalendarV3::CalendarService.new
+
+                if employee.google_token.blank? || employee.refresh_token.blank?
+                  raise StandardError.new("Google Token(s) unavailable.")
+                end
                 
                 secrets = Google::APIClient::ClientSecrets.new({
                   "web" => {
@@ -59,7 +63,7 @@ module GoogleService
                     )
                   end
                 rescue => e
-                  logger.error "Error while creating google calendar client: #{e.message}"
+                  Rails.logger.error "Error while creating google calendar client: #{e.message}"
                 end
         
                 client 

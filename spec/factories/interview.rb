@@ -3,7 +3,7 @@ FactoryBot.define do
         interviewer
         application
         
-        interview_rounds = ["First Round", "Second Round", "HR Round"]
+        interview_rounds = ["round_1", "round_2", "round_2", "round_4"]
         
         round_name { interview_rounds[rand 0..(interview_rounds.size - 1)]}
         scheduled_on { Faker::Date.between(15.days.ago, Date.today) }

@@ -31,7 +31,6 @@ module GoogleService
         else
           logger.error "#{response[:err].exception.message}"
         end
-
       rescue StandardError => e
         logger.error "Error while updating calendar event: #{e.message} - #{e.backtrace.inspect}"
       end

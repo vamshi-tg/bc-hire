@@ -17,4 +17,8 @@ module SessionsHelper
     def logged_in?
         !current_user.nil?
     end
+
+    def is_current_user?(user)
+        current_user == user
+    end
 end

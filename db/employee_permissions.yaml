@@ -1,0 +1,12 @@
+default_permissions: &default_permissions
+  can_interview_round_1: false
+  can_interview_round_2: false
+  can_interview_round_3: false
+  can_interview_round_4: false
+  
+employees:
+  23vamshi@gmail.com:
+    <<: *default_permissions
+    can_interview_round_1: true
+    can_interview_round_4: true
+
