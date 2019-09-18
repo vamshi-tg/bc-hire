@@ -12,17 +12,10 @@ class TopicFeedbacksController < ApplicationController
         end
 
         if @errors.present?
-            #TODO: Send status as bad request
-            render json: { html: "<H4> Feedback already exists for form </H4>" }    
+            render json: { html: render_to_string(partial: 'topic_feedback_errors', errors: @errors) }, status: :bad_request   
         else
             interview_topic_feedbacks = TopicFeedback.where(interview_id: interview.id)
-            render json: { 
-                html: render_to_string(partial: 'show', 
-                    locals: { 
-                        interview_topic_feedbacks: interview_topic_feedbacks, 
-                        interview_id: interview.id
-                    })
-                }
+            render_show_view_as_json(interview_topic_feedbacks, interview)
         end
     end
 
@@ -47,22 +40,26 @@ class TopicFeedbacksController < ApplicationController
         end
 
         if @errors.present?
-            #TODO: Send status as bad request
-            render json: { html: "<H4> Error while Updating </H4>" }    
+            render json: { html: render_to_string(partial: 'topic_feedback_errors', errors: @errors) }, status: :bad_request 
         else
             interview_topic_feedbacks = TopicFeedback.where(interview_id: params[:interview_id])
-            render json: { 
-                html: render_to_string(partial: 'show',
-                    locals: { 
-                        interview_topic_feedbacks: interview_topic_feedbacks, 
-                        interview_id: params[:interview_id]
-                        }) 
-                    }
+            interview = interview_topic_feedbacks.first.interview
+            render_show_view_as_json(interview_topic_feedbacks, interview)
         end
     end
 
     private
         def feedback_params(topic)
             params.require(:round).require(topic.to_sym).permit(:positives, :negatives, :candidate_level)
+        end
+
+        def render_show_view_as_json(interview_topic_feedbacks, interview)
+            render json: { 
+                html: render_to_string(partial: 'show',
+                    locals: { 
+                        interview_topic_feedbacks: interview_topic_feedbacks,
+                        interview: interview
+                        }) 
+                    }
         end
 end

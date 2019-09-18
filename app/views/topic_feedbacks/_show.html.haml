@@ -1,14 +1,15 @@
-- edit_feedback_button = "edit-feedback-#{interview_id}"
-- edit_feedback_button = "edit-feedback-#{interview_id}"
-- feedback_container_id= "topic-feedback-container-#{interview_id}"
-- edit_feedback_url = bulk_edit_interview_topic_feedbacks_url(interview_id: interview_id)
+- edit_feedback_button = "edit-feedback-#{interview.id}"
+- edit_feedback_button = "edit-feedback-#{interview.id}"
+- feedback_container_id= "topic-feedback-container-#{interview.id}"
+- edit_feedback_url = bulk_edit_interview_topic_feedbacks_url(interview_id: interview.id)
 
 %div{id: feedback_container_id}
     .border.rounded.p-4
         .d-flex.justify-content-between.mb-4
             .d-flex.justify-content-center.flex-1
                 %H4= "Topic Feedback"
-            =link_to "Edit Feedback", "#", id: edit_feedback_button
+            -if is_current_user?(interview.interviewer)
+                =link_to "Edit Feedback", "#", id: edit_feedback_button
 
         - interview_topic_feedbacks.each do |topic_feedback|  
             %h4

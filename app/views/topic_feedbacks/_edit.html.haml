@@ -2,6 +2,7 @@
 - url= bulk_update_interview_topic_feedbacks_url(interview_id: interview_id)
 - feedback_container_id= "topic-feedback-container-#{interview_id}"
 - submit_button_id = "topic-feedback-update-#{interview_id}"
+- topic_feedback_errors = "topic-feedback-errors-#{interview_id}"
 
 %div{id: feedback_container_id}
     .border.rounded.p-4
@@ -29,22 +30,33 @@
                     %hr
             .d-flex.justify-content-center
                 = submit_tag 'Update Feedback', { id: submit_button_id, class: "btn btn-primary" }
+            %div.mt-5{id: topic_feedback_errors}
 
 :javascript
     $(document).ready(function(){
         var sumbit_button_id = "#" + "#{submit_button_id}";
         var feedback_container_id = "#" + "#{feedback_container_id}";
+        var topic_feedback_errors = "#" + "#{topic_feedback_errors}";        
 
         $(sumbit_button_id).click(function(e) {
+            $(sumbit_button_id).attr("disabled", true);
             $.ajax({
                 url: "#{url}",
                 type: "PUT",
                 data: $("#form_#{interview_id}").serialize(),
                 success: function(data) {
                     $(feedback_container_id).html(data.html);
+                },
+                error: function(xhr) {
+                    $(sumbit_button_id).attr("disabled", false);   
+                    if(xhr.status == 400) {
+                        $(topic_feedback_errors).html(xhr.responseJSON.html);
+                    } else {
+                        $(topic_feedback_errors).html("<div class='alert alert-danger'> Something went wrong.</div>");
+                    }     
+                    
                 }
             });
-
             e.preventDefault();
         });
     });

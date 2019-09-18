@@ -20,9 +20,13 @@
             %p= "Interviewer: #{interview.interviewer.name}"
 
             - if interview_topic_feedbacks.any?
-                =render 'topic_feedbacks/show', interview_topic_feedbacks: interview_topic_feedbacks, interview_id: interview.id
+                =render 'topic_feedbacks/show', interview_topic_feedbacks: interview_topic_feedbacks, interview: interview
             - else
-                =render 'topic_feedbacks/new', interview_id: interview.id, round_topics: round_topics[interview.round_name.to_sym]
+                - if is_current_user?(interview.interviewer) 
+                    =render 'topic_feedbacks/new', interview_id: interview.id, round_topics: round_topics[interview.round_name.to_sym]
+                - else
+                    .d-flex.justify-content-center.border.rounded.p-4
+                        %h4= "Feedback not yet given"
                 
         .card-footer
             %p
