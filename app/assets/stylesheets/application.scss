@@ -14,18 +14,18 @@
 
  // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
-@import "tempusdominus-bootstrap-4.css";
+@import "tempusdominus-bootstrap-4";
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
 @font-face {
     font-family: 'Montserrat-Medium';
-    src: url('Montserrat/Montserrat-Medium.ttf') format('truetype');
+    src: font-url('Montserrat/Montserrat-Medium.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Montserrat-Bold';
-    src: url('Montserrat/Montserrat-Bold.ttf') format('truetype');
+    src: font-url('Montserrat/Montserrat-Bold.ttf') format('truetype');
 }
 
 html, body {
